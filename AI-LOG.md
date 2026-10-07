@@ -19,6 +19,22 @@ Changed: AI đề xuất "1 luồng chính xoay quanh LLM" — nhóm sửa thàn
 Rejected: AI xếp EventComms là lựa chọn số 1 — nhóm vote chọn LeetCode-Lite vì muốn thực hành bài toán backend thực tế, có nhiều người dùng.
 By hand: 4 ý tưởng gốc, mô tả hạn chế và vấn đề của idea học tập và ghi calo; vote chọn đề tài trong buổi họp 06/10.
 
+## 2026-10-06 — brainstorm ý tưởng đồ án Web Nâng cao (Phúc Hoàng)
+Tool: Claude (chat, có kèm các file yêu cầu môn học).
+Asked for: gợi ý ý tưởng đồ án sao cho hợp mong muốn của mình, đủ kỹ năng cho phỏng vấn fresher backend (dùng luôn đồ án làm dự án cá nhân), đúng yêu cầu của thầy (clone một sản phẩm phổ biến, không cần mới, kèm một tính năng LLM).
+Kept: tiêu chí "phần clone tự nó đã nhiều kỹ năng backend (đồng thời, hàng đợi, lưu file, realtime), LLM chỉ gắn vào đúng một chỗ có rủi ro". Giữ bảng 6 ý tưởng (LeetCode/VNOJ, CGV/Galaxy, Viblo, Google Drive, Stack Overflow, Messenger/Zalo) và bảng xếp hạng làm cơ sở so sánh; chọn đi tiếp hướng LeetCode/VNOJ (hạng 1).
+Changed: không sửa nội dung từng ý tưởng; từ danh sách này chuyển sang bước sau là yêu cầu gom về một dự án duy nhất, tối đa hóa số bài toán backend.
+Rejected: Google Drive, vì muốn bật cảnh báo phải gửi file nhạy cảm (CCCD, bảng điểm) cho mô hình. Messenger/Zalo, vì không có bước duyệt tự nhiên và tin nhắn riêng tư là dữ liệu nhạy cảm. Viblo và Stack Overflow, vì phần clone chủ yếu là CRUD nên backend mỏng. CGV/Galaxy, vì concurrency tốt nhưng xếp sau LeetCode cả về điểm môn lẫn giá trị phỏng vấn.
+By hand: viết yêu cầu và tiêu chí chọn đề tài; đánh giá hướng đi mới "ổn hơn" so với các lần gợi ý trước; quyết định chọn hướng chấm code.
+
+## 2026-10-06 — chốt đề tài và thiết kế tính năng LLM (Phúc Hoàng)
+Tool: Claude (chat, cùng cuộc hội thoại với entry trên).
+Asked for: một dự án duy nhất giải quyết càng nhiều vấn đề backend càng tốt, mà vẫn đúng yêu cầu của thầy.
+Kept: đề tài LeetCode-lite (nền tảng chấm code cho lớp lập trình). Tính năng LLM: mô hình chỉ sinh *input* test (JSON gồm input, loại ca biên, lý do), *output lấy bằng cách chạy lời giải mẫu trong sandbox*, luật cứng loại input vi phạm ràng buộc, trợ giảng duyệt (human gate) trước khi xuất bản. Cách đo lỗi bằng máy: khoảng 20 bài, mỗi bài có 3–5 lời giải sai đã biết, chỉ số bắt được ≥ 90% lời giải sai và 0 test vi phạm ràng buộc. Giữ bảng bài toán backend (sandbox, hàng đợi, idempotency, rate limit, realtime, bảng xếp hạng, phiên bản test, MinIO, JWT/RBAC, phân trang, pipeline LLM, log/metric, CI gate), phần phạm vi làm/không làm, 6 mốc PA#1–PA#6 và stack Spring Boot (hoặc NestJS), PostgreSQL, Redis, RabbitMQ, MinIO, Docker, React.
+Changed: coi các con số AI đưa ra (80 sinh viên, 3 bài lab/tuần, chi phí dưới 10 USD/học kỳ) là giả định, sẽ hỏi trợ giảng thật để kiểm chứng. Tên mô hình và giá token (gpt-5-mini, Gemini Flash) phải kiểm tra lại trên trang chính thức trước khi ghi vào proposal. Danh sách backend quá nhiều cho nhóm 3 người, nên hai mục sandbox và hàng đợi là bắt buộc, còn bảng xếp hạng realtime và load test có thể cắt nếu chậm tiến độ.
+Rejected: lấy nguyên danh sách backend rồi cam kết làm hết; dùng số liệu và giá chưa kiểm chứng làm căn cứ trong proposal. Các mục AI đặt vào phần "Không làm" (ngôn ngữ thứ ba, phát hiện đạo văn, IDE online, diễn đàn, Elo, tích hợp hệ thống trường) cũng được loại khỏi phạm vi.
+By hand: quyết định chốt đề tài này; các việc kiểm chứng sẽ tự làm: khảo sát một trợ giảng thật, dựng thử container chạy C++ không mạng có giới hạn thời gian (nếu không ổn thì chuyển sang Judge0), gom 5 bài kèm lời giải sai trước ngày 14/10 và thử mô hình bằng tay, hỏi thầy có cho dùng Spring Boot không.
+
 ## 2026-10-07 — phát triển tính năng LLM và viết proposal (Tấn Hiệp)
 Tool: Claude (claude.ai).
 Asked for: đổi tính năng LLM của LeetCode-Lite (C đề xuất) từ sinh test sang "soát ràng buộc đề, đề xuất trừ điểm"; viết toàn bộ proposal từ các ý đã chốt trong họp; chấm thử theo rubric.
@@ -58,22 +74,6 @@ Changed: Viết lại tên và mô tả theo hướng một web system hoàn ch�
 Rejected: Không dùng lại 5 đề tài gợi ý AI đã có trong file 02; không tiếp tục các đề tài Listing Policy Gate và Shipping Claim Copilot vì mục tiêu của bước này là mở rộng candidate set bằng ý tưởng mới.
 
 By hand: Chưa chốt số phiếu, người đề xuất thật và số liệu thiệt hại thực tế; các số tiền trong bảng chỉ là giả định brainstorm và cần thay bằng dữ liệu từ người dùng thật trước khi viết proposal.
-
-## 2026-10-06 — brainstorm ý tưởng đồ án Web Nâng cao (PA#1)
-Tool: Claude (chat, có kèm các file yêu cầu môn học).
-Asked for: gợi ý ý tưởng đồ án sao cho hợp mong muốn của mình, đủ kỹ năng cho phỏng vấn fresher backend (dùng luôn đồ án làm dự án cá nhân), đúng yêu cầu của thầy (clone một sản phẩm phổ biến, không cần mới, kèm một tính năng LLM).
-Kept: tiêu chí "phần clone tự nó đã nhiều kỹ năng backend (đồng thời, hàng đợi, lưu file, realtime), LLM chỉ gắn vào đúng một chỗ có rủi ro". Giữ bảng 6 ý tưởng (LeetCode/VNOJ, CGV/Galaxy, Viblo, Google Drive, Stack Overflow, Messenger/Zalo) và bảng xếp hạng làm cơ sở so sánh; chọn đi tiếp hướng LeetCode/VNOJ (hạng 1).
-Changed: không sửa nội dung từng ý tưởng; từ danh sách này chuyển sang bước sau là yêu cầu gom về một dự án duy nhất, tối đa hóa số bài toán backend.
-Rejected: Google Drive, vì muốn bật cảnh báo phải gửi file nhạy cảm (CCCD, bảng điểm) cho mô hình. Messenger/Zalo, vì không có bước duyệt tự nhiên và tin nhắn riêng tư là dữ liệu nhạy cảm. Viblo và Stack Overflow, vì phần clone chủ yếu là CRUD nên backend mỏng. CGV/Galaxy, vì concurrency tốt nhưng xếp sau LeetCode cả về điểm môn lẫn giá trị phỏng vấn.
-By hand: viết yêu cầu và tiêu chí chọn đề tài; đánh giá hướng đi mới "ổn hơn" so với các lần gợi ý trước; quyết định chọn hướng chấm code.
-
-## 2026-10-06 — chốt đề tài và thiết kế tính năng LLM (PA#1)
-Tool: Claude (chat, cùng cuộc hội thoại với entry trên).
-Asked for: một dự án duy nhất giải quyết càng nhiều vấn đề backend càng tốt, mà vẫn đúng yêu cầu của thầy.
-Kept: đề tài LeetCode-lite (nền tảng chấm code cho lớp lập trình). Tính năng LLM: mô hình chỉ sinh *input* test (JSON gồm input, loại ca biên, lý do), *output lấy bằng cách chạy lời giải mẫu trong sandbox*, luật cứng loại input vi phạm ràng buộc, trợ giảng duyệt (human gate) trước khi xuất bản. Cách đo lỗi bằng máy: khoảng 20 bài, mỗi bài có 3–5 lời giải sai đã biết, chỉ số bắt được ≥ 90% lời giải sai và 0 test vi phạm ràng buộc. Giữ bảng bài toán backend (sandbox, hàng đợi, idempotency, rate limit, realtime, bảng xếp hạng, phiên bản test, MinIO, JWT/RBAC, phân trang, pipeline LLM, log/metric, CI gate), phần phạm vi làm/không làm, 6 mốc PA#1–PA#6 và stack Spring Boot (hoặc NestJS), PostgreSQL, Redis, RabbitMQ, MinIO, Docker, React.
-Changed: coi các con số AI đưa ra (80 sinh viên, 3 bài lab/tuần, chi phí dưới 10 USD/học kỳ) là giả định, sẽ hỏi trợ giảng thật để kiểm chứng. Tên mô hình và giá token (gpt-5-mini, Gemini Flash) phải kiểm tra lại trên trang chính thức trước khi ghi vào proposal. Danh sách backend quá nhiều cho nhóm 3 người, nên hai mục sandbox và hàng đợi là bắt buộc, còn bảng xếp hạng realtime và load test có thể cắt nếu chậm tiến độ.
-Rejected: lấy nguyên danh sách backend rồi cam kết làm hết; dùng số liệu và giá chưa kiểm chứng làm căn cứ trong proposal. Các mục AI đặt vào phần "Không làm" (ngôn ngữ thứ ba, phát hiện đạo văn, IDE online, diễn đàn, Elo, tích hợp hệ thống trường) cũng được loại khỏi phạm vi.
-By hand: quyết định chốt đề tài này; các việc kiểm chứng sẽ tự làm: khảo sát một trợ giảng thật, dựng thử container chạy C++ không mạng có giới hạn thời gian (nếu không ổn thì chuyển sang Judge0), gom 5 bài kèm lời giải sai trước ngày 14/10 và thử mô hình bằng tay, hỏi thầy có cho dùng Spring Boot không.
 
 ---
 
