@@ -3,7 +3,7 @@
 One entry per task where an assistant did part of the work. The letter in each
 heading (A, B, C) is the team member who did the task — see the member line in the proposal.
 
-## 2026-10-05 — đọc đề, phân tích rubric, chuẩn bị chọn đề tài (A)
+## 2026-10-05 — đọc đề, phân tích rubric, chuẩn bị chọn đề tài (Tấn Hiệp)
 Tool: Claude (claude.ai).
 Asked for: viết lại đề PA#1 bằng tiếng Việt, tìm chỗ lệch giữa slide/Classroom/rubric, gợi ý đề tài và khung proposal cho nhóm.
 Kept: phân tích chỗ lệch về spec và AI-LOG; khung 6 mục theo rubric.
@@ -11,7 +11,7 @@ Changed: lịch quy đổi — AI lấy tuần 1 là 21/09, sửa lại thành 1
 Rejected: file Excel chấm đề tài và phân công — quá dài, nhóm sẽ không đọc; thay bằng quy trình 4 bước trong tài liệu.
 By hand: thông tin lịch học, hạn PA#1, quyết định làm sản phẩm mới thay vì smart-restaurant.
 
-## 2026-10-06 — mở rộng ý tưởng đề tài và đánh giá các đề tài trong sheet (A)
+## 2026-10-06 — mở rộng ý tưởng đề tài và đánh giá các đề tài trong sheet (Tấn Hiệp)
 Tool: Claude (claude.ai).
 Asked for: mở rộng 4 ý tưởng của A (TMĐT, video, học theo JD, ghi calo món Việt) thành các cột của sheet; chấm thử các đề tài nhóm đề xuất theo tiêu chí và khối lượng.
 Kept: cách diễn đạt "sai thì ai thiệt, bao nhiêu" và ca khó cho từng ý tưởng; bảng so sánh khối lượng với đồ án năm trước.
@@ -19,7 +19,7 @@ Changed: AI đề xuất "1 luồng chính xoay quanh LLM" — nhóm sửa thàn
 Rejected: AI xếp EventComms là lựa chọn số 1 — nhóm vote chọn LeetCode-Lite vì muốn thực hành bài toán backend thực tế, có nhiều người dùng.
 By hand: 4 ý tưởng gốc, mô tả hạn chế và vấn đề của idea học tập và ghi calo; vote chọn đề tài trong buổi họp 06/10.
 
-## 2026-10-07 — phát triển tính năng LLM và viết proposal (A)
+## 2026-10-07 — phát triển tính năng LLM và viết proposal (Tấn Hiệp)
 Tool: Claude (claude.ai).
 Asked for: đổi tính năng LLM của LeetCode-Lite (C đề xuất) từ sinh test sang "soát ràng buộc đề, đề xuất trừ điểm"; viết toàn bộ proposal từ các ý đã chốt trong họp; chấm thử theo rubric.
 Kept: quy trình luật cứng → LLM trả JSON có bằng chứng → kiểm tra đầu ra → TA duyệt trước khi công bố điểm; ngưỡng eval 0 trừ oan; hai rủi ro.
@@ -27,18 +27,34 @@ Changed: mục 1 viết lại theo lớp dạy kèm thật của A (AI ban đầ
 Rejected: đề xuất bỏ Java và MongoDB để gọn stack — nhóm giữ microservice Node/Java/Python và mỗi service một CSDL.
 By hand: chọn đề tài và hướng A trong họp, chọn stack và phân công, số liệu lớp dạy kèm, tên sản phẩm LeeTKOB.
 
-## 2026-10-07 — <việc đã làm> (B)
-Tool: <...>
-Asked for: <...>
-Kept: <...>
-Changed: <...>
-Rejected: <...>
-By hand: <...>
+## 2026-10-07 — nghiên cứu và đề xuất đề tài mới cho PA#1 (Thái Hoà)
+Tool: ChatGPT (GPT-5.6 Sol) + Superpowers brainstorming + web research.
 
-## 2026-10-07 — <việc đã làm> (C)
-Tool: <...>
-Asked for: <...>
-Kept: <...>
-Changed: <...>
-Rejected: <...>
-By hand: <...>
+Asked for: Nghiên cứu các ý tưởng đề tài mới cho PA#1, bám rubric của môn; ưu tiên đề tài là một web app rõ ràng, có workflow, dữ liệu, vai trò người dùng và một tính năng LLM cốt lõi có thể đánh giá được.
+
+Kept: Cách đánh giá đề tài theo các tiêu chí: người dùng cụ thể, vấn đề thực tế, hậu quả khi LLM sai, khả năng tạo bộ eval có đáp án, human gate ở bước có hậu quả, phạm vi CRUD phù hợp và khả năng hỏi người dùng thật. Giữ các hướng đề tài mới có workflow nghiệp vụ rõ như quản lý mua hàng, quản lý sản xuất/vendor cho agency-event, quản lý thay đổi đơn hàng, quản lý campaign khuyến mãi, quản lý thực tập và đối soát nhập kho.
+
+Changed: Loại bỏ hướng chỉ tối ưu lại 5 đề tài gợi ý có sẵn trong tài liệu vì yêu cầu là tìm ý tưởng mới. Chuyển từ các “checker/tool” nhỏ sang cách đặt đề tài ở cấp hệ thống web lớn hơn, trong đó LLM chỉ đảm nhiệm một bước semantic quan trọng như trích xuất yêu cầu, đối chiếu tài liệu hoặc phát hiện mismatch.
+
+Rejected: Các ý tưởng quá giống chatbot hỏi đáp, chỉ upload một file rồi trả kết quả, hoặc không có workflow/approval rõ ràng; các ý tưởng khó định lượng hậu quả khi sai hoặc khó tạo ground-truth để eval.
+
+By hand: Tự quyết định tiêu chí “web lớn rõ ràng” cần thể hiện qua dashboard, nhiều thực thể dữ liệu, trạng thái xử lý, lịch sử, approval và role; tự chọn các đề tài phù hợp nhất để đưa vào sheet vote của nhóm.
+
+## 2026-10-07 — điền bảng đề tài để nhóm vote (Thái Hoà)
+Tool: ChatGPT (GPT-5.6 Sol).
+
+Asked for: Điền các đề tài mới vào đúng bảng chung của nhóm với các cột: Người đề xuất, Tên đề tài, Người dùng, Vấn đề, Cách làm hiện tại, Tính năng LLM, Hậu quả khi sai, Cách biết sai, Khả năng hỏi người dùng thật và Số phiếu.
+
+Kept: Sáu đề tài mới gồm:
+1. Hệ thống quản lý mua hàng và phê duyệt báo giá nhà cung cấp.
+2. Hệ thống quản lý yêu cầu sản xuất và phê duyệt vendor cho Agency/Event.
+3. Hệ thống quản lý ngoại lệ và thay đổi đơn hàng thương mại điện tử.
+4. Hệ thống quản lý chiến dịch khuyến mãi và kiểm duyệt cấu hình trước khi publish.
+5. Cổng quản lý thực tập doanh nghiệp và kiểm tra điều kiện thực tập.
+6. Hệ thống quản lý nhập kho và đối soát đơn mua hàng – hàng thực nhận.
+
+Changed: Viết lại tên và mô tả theo hướng một web system hoàn chỉnh thay vì một tính năng LLM đơn lẻ. Mỗi đề tài đều bổ sung workflow, dữ liệu, approval và điểm human gate để phù hợp với yêu cầu của đồ án.
+
+Rejected: Không dùng lại 5 đề tài gợi ý AI đã có trong file 02; không tiếp tục các đề tài Listing Policy Gate và Shipping Claim Copilot vì mục tiêu của bước này là mở rộng candidate set bằng ý tưởng mới.
+
+By hand: Chưa chốt số phiếu, người đề xuất thật và số liệu thiệt hại thực tế; các số tiền trong bảng chỉ là giả định brainstorm và cần thay bằng dữ liệu từ người dùng thật trước khi viết proposal.
