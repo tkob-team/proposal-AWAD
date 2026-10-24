@@ -1,30 +1,30 @@
 # LeeTKOB — Proposal
 
-Nhóm: Lê Tấn Hiệp, Tống Dương Thái Hoà, Nguyễn Phúc Hoàng. Repo: https://github.com/tkob-team/proposal-AWAD
+Nhóm (product owner): Lê Tấn Hiệp, Tống Dương Thái Hoà, Nguyễn Phúc Hoàng. Theo class brief và [FAQ](https://github.com/tkob-team/LeeTKOB-FAQ/blob/main/FAQ.md); chi tiết: [`proposal-detail.md`](./proposal-detail.md).
 
 ## 1. Người dùng và vấn đề
-**TA chấm lab C++.** Đề có yêu cầu ngoài output ("tự cài merge sort"), nhưng máy chấm chỉ so output: gọi `std::sort` vẫn qua hết test. Hết hạn, TA đọc code từng bài, chấm tay cả bài lỗi biên dịch (khoảng 80 bài/tuần, 3–4 giờ).
+**TA chấm lab C++.** Đề có yêu cầu ngoài output ("tự cài merge sort"), nhưng máy chấm chỉ so output: gọi `std::sort` vẫn Accepted. Trước khi công bố điểm, TA đọc từng bài trong khoảng 80 bài Accepted (2–3 phút mỗi bài, 3–4 giờ mỗi tuần).
 
 ## 2. Tính năng LLM và cái giá khi sai
-**Soát ràng buộc, đề xuất trừ điểm**: một bước cố định trong quy trình chấm, không phải chatbot hay agent. Chấm cả lớp sau hạn → **luật cứng** bắt vi phạm chắc chắn (cấm hàm, đệ quy) → **LLM** xét phần cần hiểu code (đúng thuật toán, mảng phụ; rubric bài lỗi biên dịch), trả JSON `đạt / vi phạm / không chắc` kèm dòng code làm bằng chứng → kiểm tra schema, dòng trích → tính điểm theo mức TA đặt → **TA duyệt theo nhóm rồi mới công bố**. Đề phải qua lời giải mẫu trước khi phát hành.
-**Sai thì sao:** trừ oan có thể làm sinh viên rớt môn hoặc mất học bổng; hiểu sai một ràng buộc là cả lớp bị trừ. **Eval:** bộ dev, bộ giữ kín, red-team; ngưỡng **0 trừ oan**, recall vi phạm ≥ 90%, "không chắc" ≤ 20%. **Dữ liệu gửi ra:** đề và code đã bỏ comment, MSSV, tên.
+**Soát ràng buộc trước khi công bố điểm**: một bước cố định trong quy trình chấm, không phải chatbot hay agent. Sinh viên nộp → chấm trong sandbox, thấy kết quả ngay → bài Accepted qua **luật cứng** (ràng buộc "Do not use / Do not call") → **mô hình** xét ràng buộc ngữ nghĩa, trả `pass / violation / unsure` kèm dòng code → kiểm schema, bằng chứng khớp dòng gốc, timeout, hạn mức chi phí → hàng chờ (mọi violation, unsure, 10% pass) → **TA duyệt rồi mới Publish**. Mô hình không quyết mức trừ.
+**Sai thì sao:** trừ oan có thể làm sinh viên rớt môn hoặc mất học bổng; hiểu sai một ràng buộc là cả lớp bị trừ. **Eval:** bộ dev của thầy + ca của nhóm, chạy `eval.mjs` trong CI; ngưỡng **0 trừ oan**, recall ≥ 90%, unsure ≤ 20%. **Dữ liệu gửi ra:** đề, ràng buộc, code đã bỏ comment, tên, MSSV.
 
 ## 3. Phạm vi
-**Làm:** 55 tính năng có mã (36 Must, 12 Should, 7 Could) trong 9 nhóm, từ tài khoản, lớp, đề tới chấm theo hạn, duyệt điểm, khiếu nại, vận hành (mục 3.1 [`proposal-detail.md`](./proposal-detail.md)). **Không làm:** chấm hoặc báo biên dịch khi nộp; ngôn ngữ thứ hai; LLM quyết mức trừ hay viết nhận xét; phát hiện đạo văn; API/MCP cho agent ngoài; Classroom add-on.
+**Làm:** 57 tính năng có mã (37 Must): tài khoản, lớp, lab, chấm realtime, sandbox có test tấn công, soát ràng buộc, duyệt và Publish, khiếu nại, CI, quan sát, load test, triển khai. **Không làm:** ngôn ngữ thứ hai; mô hình sinh test, chọn mức trừ, chấm bài không Accepted; nộp trễ; đạo văn; contest, IDE, RAG.
 
 ## 4. Kế hoạch
 | Hạn | R1 Lớp, điểm (Node) | R2 Chấm bài, hạ tầng (Java) | R3 Tính năng LLM (Python) |
 |---|---|---|---|
-| 11/11 PA#2 | Đăng nhập, lớp, CSV, đề, nộp bài; test phân quyền | Sandbox, job chấm theo hạn; CI gate; test không chấm trùng | Hợp đồng JSON, checker giả; thử 2 mô hình; harness eval |
-| 25/11 PA#3 | Tính điểm, công bố, sinh viên xem dòng bị trừ | Kiểm tra đề bằng lời giải mẫu; nối checker | Luật cứng + LLM + kiểm tra đầu ra; rubric; hàng chờ duyệt |
-| 02/12 PA#4 | Khiếu nại, nhật ký duyệt; test công bố 2 lần | Timeout, hạn mức chi phí; test thoát sandbox | Giữ kín + red-team đạt ngưỡng; gate eval; báo cáo |
-| 16/12 PA#5 | Nhận xét, xuất CSV; thống kê (cắt trước) | URL công khai, load test, dashboard | Eval trên bản triển khai, chi phí thật |
-| 30/12 bản cuối | Test E2E luồng TA và sinh viên | Triển khai bản cuối theo runbook | Kịch bản demo, video |
+| 11/11 PA#2 | Đăng nhập, lớp, lab, nộp bài; contract + contract test | Sandbox + test tấn công; rules file; CI bắt buộc | Checker giả; CLI ghi JSONL; luật cứng; eval trong CI |
+| 25/11 PA#3 | Ràng buộc, bài được tính, tính điểm | Kết quả realtime; nối checker qua hàng đợi | Mô hình + kiểm đầu ra; hàng chờ có bằng chứng |
+| 02/12 PA#4 | Publish chặn khi chưa duyệt; test Publish 2 lần | Timeout, hạn mức chi phí; bản triển khai cho red team | Gate eval bắt buộc; duyệt theo nhóm; báo cáo red-team |
+| 16/12 PA#5 | Khiếu nại, sửa điểm, thông báo | Log/metric/trace, load test 80 bài, post-mortem | Eval trên bản triển khai; chi phí mỗi lab |
+| 23/12 bản cuối | Test E2E luồng TA và sinh viên | Triển khai lại theo runbook | Kịch bản demo |
 
-**06/01/2027:** vấn đáp cả ba người. R1–R3 là vai trò, mỗi nhóm tự gán cho 3 thành viên. Milestone tuần ở bản chi tiết mục 5, mỗi mã tính năng một GitHub Issue.
+**24/12, 31/12:** vấn đáp. R1–R3 là vai trò, mỗi nhóm tự gán cho 3 thành viên; milestone tuần ở bản chi tiết mục 5. Việc PO: trực FAQ luân phiên, trả lời trong 2 ngày làm việc.
 
 ## 5. Rủi ro
-**Mô hình trừ oan / "không chắc" nhiều** → tuần này chạy 5 bài × 4 lời giải trên 2 mô hình; trừ oan hoặc "không chắc" > 40% thì R3 chỉ làm checker tới PA#2, R1, R2 dùng checker giả. **Hạ tầng chấm bài** → sandbox + hàng đợi ở W1; dự phòng Judge0, isolate. **TA duyệt mù** → không có nút "duyệt tất cả" cho đề xuất LLM.
+**Stack quá nặng** → chốt ở W1, có thể gộp service. **Sandbox chưa đạt** → test tấn công từ W2; dự phòng Judge0. **Trừ oan / unsure nhiều** → thử 2 mô hình trên bộ dev ngay W1. **TA duyệt mù** → không có "duyệt tất cả" cho đề xuất của mô hình.
 
 ## 6. Công nghệ và chi phí
-React, NestJS, Spring Boot, Python (tree-sitter); PostgreSQL, MongoDB, Redis, RabbitMQ, Garage; Docker, GitHub Actions; Vercel + máy ảo. Gemini 3.1 Flash-Lite (dự phòng Groq); khoảng 5.000 lần gọi ≈ 6 USD, hạn mức 10 USD.
+React, NestJS, Spring Boot, Python; PostgreSQL, MongoDB, Redis, RabbitMQ, Garage; Docker, GitHub Actions; Vercel + máy ảo. Gemini 3.1 Flash-Lite: ≈ 0,2 USD/lab, giới hạn chi tiêu 10 USD.

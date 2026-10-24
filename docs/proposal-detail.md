@@ -1,8 +1,11 @@
 # LeeTKOB — Proposal chi tiết
 
-Tài liệu này bổ sung cho [`proposal.md`](./proposal.md) (bản 1 trang). Cả lớp cùng làm đề tài này theo nhóm 3 người, nên tài liệu viết để mọi nhóm đọc xong có thể bắt tay làm: hệ thống làm gì, tính năng LLM chạy thế nào, gồm những tính năng nào, làm theo thứ tự nào và mỗi tuần phải xong những mã tính năng nào.
+Kế hoạch **của nhóm mình** để làm LeeTKOB, bổ sung cho [`proposal.md`](./proposal.md) (bản 1 trang).
 
-Nhóm đề xuất: Lê Tấn Hiệp (23120255), Tống Dương Thái Hoà (23120262), Nguyễn Phúc Hoàng (23120264)
+- **Phạm vi chung của cả lớp** là *class brief* (thầy đăng trên Classroom ngày 22/10/2026) và [FAQ của product owner](https://github.com/tkob-team/LeeTKOB-FAQ/blob/main/FAQ.md). Tài liệu này đã chỉnh để khớp với cả hai. Chỗ nào lệch thì theo brief, sau đó tới FAQ.
+- Các tính năng ghi **(nhóm mở rộng)** là phần nhóm tự thêm, không bắt buộc với các nhóm khác.
+
+Nhóm: Lê Tấn Hiệp (23120255), Tống Dương Thái Hoà (23120262), Nguyễn Phúc Hoàng (23120264). Nhóm đồng thời là product owner (PO) của LeeTKOB.
 Repo: https://github.com/tkob-team/proposal-AWAD
 
 ## Mục lục
@@ -24,157 +27,136 @@ Repo: https://github.com/tkob-team/proposal-AWAD
 
 | Vai trò | Ai | Dùng hệ thống để |
 |---|---|---|
-| **TA** (người dùng chính) | Trợ giảng hoặc người dạy lập trình phụ trách lớp lab C++ | Tạo đề, khai báo ràng buộc, đọc báo cáo sau chấm, duyệt đề xuất trừ điểm, công bố điểm, xử lý khiếu nại |
-| **Giảng viên** | Người phụ trách môn, quản lý nhiều lớp và nhiều TA | Tạo lớp theo học kỳ, phân công TA, xem bảng điểm và báo cáo của mọi lớp |
-| **Sinh viên** | Người học nộp bài | Nộp code trước hạn, xem điểm và dòng code bị trừ sau khi công bố, gửi khiếu nại |
-| **Admin** | Người quản lý hệ thống | Tạo tài khoản giảng viên, TA; quản lý học kỳ |
+| **TA** (người dùng chính) | Trợ giảng hoặc người dạy lập trình phụ trách lớp lab C++ | Tạo lab, khai báo ràng buộc, duyệt đề xuất trừ điểm, công bố điểm, xử lý khiếu nại |
+| **Sinh viên** | Người học nộp bài | Nộp code, xem kết quả chấm test ngay, xem điểm và dòng code bị trừ sau khi công bố, gửi khiếu nại |
+| **Admin** | Người quản lý hệ thống | Tạo lớp, gán TA vào lớp (FAQ-01) |
 
 ### 1.2 Vấn đề
 
-Bài lab lập trình hầu như luôn có **yêu cầu ngoài output**: "không dùng hàm có sẵn", "phải dùng đệ quy", "tự cài merge sort", "không dùng mảng phụ". Máy chấm chỉ so output, nên bài gọi `std::sort` vẫn qua hết test. Muốn biết sinh viên có làm đúng đề hay không, người chấm phải mở code từng bài.
+Bài lab lập trình hầu như luôn có **yêu cầu ngoài output**: "không dùng hàm có sẵn", "tự cài merge sort", "không dùng vòng lặp". Máy chấm chỉ so output, nên bài gọi `std::sort` vẫn Accepted. Muốn biết sinh viên có làm đúng đề hay không, người chấm phải mở code từng bài.
 
-**Tình huống điển hình:** hết hạn nộp lab "Sắp xếp", TA phải đọc từng bài xem sinh viên có tự cài merge sort như đề yêu cầu không, chấm tay các bài không biên dịch được, rồi viết nhận xét cho từng bài trước hạn công bố điểm.
+**Tình huống điển hình (brief, mục 2):** tối trước khi công bố điểm lab "Sắp xếp", khoảng 80 bài Accepted; TA đọc từng bài xem sinh viên có thật sự cài merge sort không. Mỗi bài 2–3 phút, 3–4 giờ mỗi tuần. Sinh viên khiếu nại thì TA phải đọc lại code để giải thích.
 
 ### 1.3 Hiện họ làm thế nào
 
-- Thành viên nhóm đề xuất đang dạy kèm C++ cho học sinh và sinh viên năm 1–2 (2 lớp, 20 học viên, 10–20 bài mỗi tuần): đọc code từng bài để kiểm tra ràng buộc, trừ theo mức đề, viết nhận xét, thỉnh thoảng bị khiếu nại trừ oan (kiểm tra lại thì đa số trừ đúng).
-- Mỗi người chấm xử lý bài không biên dịch được một kiểu: có người cho 0 điểm, có người đọc phần code còn lại để chấm theo ý tưởng.
-- Ở quy mô một TA lớp lab (ước tính khoảng 80 bài mỗi tuần, 2–3 phút mỗi bài), việc này mất 3–4 giờ mỗi tuần. Không đọc hết thì người "lách đề" vẫn đủ điểm và bài lab mất mục đích luyện kỹ năng.
+- Thành viên nhóm đang dạy kèm C++ cho học sinh và sinh viên năm 1–2 (2 lớp, 20 học viên, 10–20 bài mỗi tuần): đọc code từng bài để kiểm tra ràng buộc, trừ theo mức đề, viết nhận xét, thỉnh thoảng bị khiếu nại trừ oan.
+- Bài không Accepted mỗi người chấm một kiểu: có người cho 0 điểm, có người cho điểm theo ý tưởng. LeeTKOB mặc định 0 điểm và cho TA nhập điểm tay (FAQ-04).
 
 ---
 
 ## 2. Tính năng LLM: soát ràng buộc đề, đề xuất trừ điểm
 
-Đây là **một bước LLM cố định trong quy trình chấm**, không phải chatbot và không phải agent: hệ thống gọi mô hình ở đúng một chỗ, với đầu vào và schema đầu ra cố định; mô hình không gọi tool, không tự quyết bước tiếp theo. TA chỉ thấy đề xuất kèm bằng chứng và quyết định.
+Đây là **một bước LLM cố định trong quy trình chấm**, không phải chatbot hay agent: hệ thống gọi mô hình ở đúng một chỗ, đầu vào và schema đầu ra cố định, mô hình không gọi tool. **Mô hình không bao giờ quyết mức trừ**: nó chỉ trả `pass` / `violation` / `unsure` cho từng ràng buộc kèm dòng code làm bằng chứng; mức trừ do TA đặt, TA duyệt trước khi công bố.
 
-**Nguyên tắc xuyên suốt: LLM không quyết mức trừ.** Mô hình chỉ trả `đạt / vi phạm / không chắc` cho từng tiêu chí kèm dòng code làm bằng chứng. Điểm do hệ thống tính từ mức trừ và thang điểm TA đã đặt, và TA duyệt trước khi công bố.
+### 2.1 Hai loại ràng buộc
 
-### 2.1 Hai loại tiêu chí mô hình xét
+Theo quy ước của bộ eval (brief mục 6, README bộ dev):
 
-**Loại 1: Ràng buộc của đề** (bài biên dịch được). TA khai báo khi tạo đề; mỗi ràng buộc gồm nhóm, mô tả bằng lời, mức trừ.
+| Loại | Nhận biết | Ví dụ | Ai quyết |
+|---|---|---|---|
+| **Danh sách cấm** | Câu bắt đầu bằng "Do not use" hoặc "Do not call", mọi tên bị cấm nằm trong backtick | "Do not call a library sort function: `std::sort`, `std::stable_sort`, …" | **Luật cứng** (tree-sitter-cpp): bắt lời gọi thật, phân biệt `std::sort` với hàm `sort` do sinh viên tự viết, bắt cả alias, `using`, macro. Luật quyết được thì không gọi mô hình |
+| **Ngữ nghĩa** | Mọi ràng buộc còn lại | "Sort with a merge sort you wrote yourself", "free every block you allocate", "reverse in place, no second buffer" | **Mô hình**. Luật cứng có thể đưa thêm gợi ý (đồ thị lời gọi, danh sách vòng lặp) vào prompt, nhưng không tự quyết |
 
-| Nhóm | Ví dụ | Ai xét |
-|---|---|---|
-| **1. Cấm hàm / thư viện có sẵn** | Không dùng `std::sort`, `std::stable_sort`; không `#include <algorithm>`; không dùng `std::map` | **Luật cứng** (phân tích cú pháp, phân biệt `std::sort` với hàm cùng tên do sinh viên tự viết). LLM chỉ xét khi bị che giấu (`#define`, alias) |
-| **2. Bắt dùng đúng kỹ thuật / thuật toán** | Phải dùng đệ quy; tự cài merge sort; dùng quy hoạch động | Có đệ quy hay không: **luật cứng** (đồ thị lời gọi hàm). Có đúng thuật toán đề yêu cầu không: **LLM** |
-| **3. Giới hạn cách làm** | Không dùng mảng phụ; không dùng biến toàn cục; độ phức tạp O(n log n) | Biến toàn cục: **luật cứng**. Mảng phụ trá hình, độ phức tạp: **LLM** (độ phức tạp thường trả "không chắc") |
-
-**Loại 2: Rubric cho bài không biên dịch được.** TA chọn chính sách cho từng bài tập (tính năng C10):
-- **0 điểm:** không gọi LLM.
-- **Chấm theo rubric:** TA viết vài tiêu chí kèm điểm (ví dụ "đọc input đúng: 1 điểm", "chia đôi mảng đúng: 3 điểm") và đặt **trần** cho bài lỗi biên dịch (ví dụ tối đa 50% điểm bài). LLM xét từng tiêu chí `đạt / không đạt / không chắc` kèm dòng code; hệ thống cộng điểm các tiêu chí đạt rồi áp trần. Trần do TA đặt bảo đảm bài lỗi biên dịch luôn được ít điểm hơn bài chạy được, và chặn chiêu cố ý nộp mã giả.
-
-Hai loại dùng chung một pipeline, một schema đầu ra và một bước kiểm tra đầu ra; chỉ khác loại tiêu chí.
+Checker chỉ đọc `statement.md` và `constraints.json`, **không cấu hình riêng cho từng bài**, vì thầy chạy bộ giữ kín (bài khác) bằng đúng một lệnh.
 
 ### 2.2 Quy trình
 
-1. **Sinh viên nộp trước hạn.** Nộp lại thì bản mới thay bản cũ. Hệ thống **không chấm và không báo biên dịch khi nộp**, chỉ xác nhận đã nhận bài và thời điểm nhận.
-2. **Hết hạn → job chấm cả lớp.** Lấy bản nộp cuối của mỗi sinh viên, đưa vào hàng đợi; judge chạy toàn bộ test trong sandbox → verdict từng test và điểm test.
-3. **Phân loại bài:**
-   - Biên dịch được, điểm test > 0 → soát **ràng buộc**.
-   - Lỗi biên dịch → theo chính sách của bài: 0 điểm, hoặc xét **rubric**.
-   - Biên dịch được nhưng không qua test nào → 0 điểm, không soát (không còn gì để trừ).
-4. **Chuẩn bị đầu vào:** bỏ comment, bỏ MSSV và tên; code đặt trong khung dữ liệu riêng của prompt để không bị coi là chỉ dẫn.
-5. **Luật cứng** chạy cho mọi ràng buộc mà luật quyết được. Đã kết luận chắc chắn thì **không gọi LLM**.
-6. **LLM** chỉ xét các tiêu chí còn lại, trả JSON theo schema (mục 2.4).
-7. **Kiểm tra đầu ra:** sai schema → gọi lại tối đa 1 lần, vẫn sai → "không chắc". Đoạn code trích dẫn phải có thật ở đúng dòng, không khớp → "không chắc". Có timeout và hạn mức chi phí cho mỗi bài tập; vượt hạn mức → mọi bài còn lại chuyển "không chắc".
-8. **Hệ thống tính điểm đề xuất:** điểm test − tổng mức trừ của các vi phạm (không âm), áp phạt nộp trễ nếu có; bài rubric thì cộng điểm tiêu chí đạt rồi áp trần.
-9. **Báo cáo sau chấm và hàng chờ:** TA đọc báo cáo của bài tập trước (phân bố điểm, số đề xuất theo loại, danh sách cần xem), sau đó duyệt **theo nhóm** (mục 2.5).
-10. **TA bấm "Công bố điểm"**: bước khó đảo ngược, chạy trong một transaction, ghi nhật ký (ai duyệt, lúc nào, phiên bản prompt và mô hình).
-11. Sinh viên thấy điểm, kết quả test và **dòng code bị trừ** kèm lý do (dùng luôn làm nhận xét), có thể **khiếu nại** từng khoản trừ. Mỗi đề xuất TA bác hoặc khiếu nại sinh viên thắng được đánh dấu làm ứng viên bổ sung bộ eval (tính năng E7).
+1. **Sinh viên nộp** → hàng đợi → judge chạy trong sandbox → sinh viên thấy **ngay** verdict tổng và verdict từng test, không thấy input/output của test (brief mục 4; FAQ-02).
+2. **Bài Accepted** được soát ràng buộc. Hàng chờ của TA chỉ hiện **bài được tính** của mỗi sinh viên: bài nộp cuối cùng trước hạn; trước hạn là bài mới nhất (tạm tính) (FAQ-02).
+3. **Chuẩn bị đầu vào:** bỏ comment, tên, MSSV; giữ bảng ánh xạ về **dòng gốc** để bằng chứng luôn trích đúng dòng của file sinh viên nộp. Code đặt trong khung dữ liệu riêng của prompt để không bị coi là chỉ dẫn.
+4. **Luật cứng** quyết các ràng buộc danh sách cấm.
+5. **Mô hình** xét các ràng buộc ngữ nghĩa, trả JSON theo schema (mục 2.4).
+6. **Kiểm tra đầu ra** (brief mục 3): sai schema → gọi lại tối đa 1 lần, vẫn sai → `unsure`; dòng bằng chứng không khớp **chính xác** dòng gốc → `unsure`; hết thời gian chờ → `unsure`; vượt hạn mức chi phí của lab → các cặp còn lại `unsure`.
+7. **Hàng chờ duyệt:** mọi `violation`, mọi `unsure`, và 10% số `pass` của lab chọn ngẫu nhiên, làm tròn lên (FAQ-10).
+8. **TA duyệt theo nhóm** (mục 2.5). Với `unsure`, TA phải chọn `pass` hoặc `violation`; chọn `violation` thì phải chỉ ít nhất một dòng code (FAQ-09).
+9. **Publish:** chỉ được khi đã hết hạn **và** hàng chờ không còn mục chưa quyết; chạy trong một transaction; bấm lần nữa không đổi gì; ghi nhật ký (ai duyệt, lúc nào, phiên bản prompt và mô hình) (FAQ-12).
+10. **Sau công bố:** sinh viên thấy các khoản trừ kèm ràng buộc, mức trừ, dòng bằng chứng và lý do (FAQ-08); khiếu nại từng khoản trong 7 ngày; TA chấp nhận hoặc bác, cả hai đều kèm lý do (FAQ-13, FAQ-14).
+
+**Điểm** (FAQ-04, FAQ-11): bài Accepted = 10 − tổng mức trừ của các khoản trừ, thấp nhất 0, mỗi ràng buộc trừ một lần. Bài không Accepted = 0 điểm, không soát; TA có thể nhập điểm tay kèm lý do.
 
 ### 2.3 Kịch bản ví dụ
 
-Đề: *"Sắp xếp dãy n số nguyên tăng dần (10 điểm, 10 test). Ràng buộc: (R1) không dùng `std::sort`, trừ 5 điểm; (R2) phải tự cài merge sort, trừ 3 điểm. Bài lỗi biên dịch: chấm theo rubric, trần 50%."*
-Rubric: đọc input (1đ), chia đôi đệ quy (3đ), trộn hai nửa (4đ), in kết quả (2đ).
+Bài `sort-merge` trong bộ dev của thầy: **C1** "Do not call a library sort function…" (trừ 3); **C2** "Sort with a merge sort you wrote yourself…" (trừ 4).
 
-| Bài nộp | Judge | Luật cứng | LLM | Điểm đề xuất | TA thấy |
-|---|---|---|---|---|---|
-| Gọi `std::sort` ở dòng 12 | 10/10 test | R1: vi phạm (dòng 12) | R2: vi phạm (không có merge sort) | 10 − 5 − 3 = 2 | Hai đề xuất; R1 nằm trong nhóm luật cứng, duyệt cả nhóm một lần |
-| Tự viết `mySort` là bubble sort | 10/10 test | R1: đạt | R2: vi phạm, dòng 4–15 là hai vòng lặp hoán đổi phần tử kề nhau | 10 − 3 = 7 | Đề xuất trừ 3 điểm kèm đoạn code, duyệt từng mục |
-| Tự cài merge sort đúng | 10/10 test | R1: đạt | R2: đạt | 10 | Không có đề xuất (10% khả năng được chọn ngẫu nhiên để TA xem lại) |
-| Merge sort, thiếu dấu `;` ở dòng 18 | Lỗi biên dịch | Không chạy | Đọc input: đạt; chia đôi: đạt; trộn: đạt; in kết quả: không chắc | 1 + 3 + 4 = 8 → trần 5 | Đề xuất 5/10 kèm bằng chứng từng tiêu chí; mục "không chắc" bắt buộc TA xem |
+| Bài nộp | C1 (luật cứng) | C2 (mô hình) | Vào hàng chờ? | Điểm nếu TA chấp nhận |
+|---|---|---|---|---|
+| Gọi `std::sort` ở dòng 12 | `violation`, dòng 12 | `violation`: không có merge sort | Có | 10 − 3 − 4 = 3 |
+| Tự viết hàm tên `sort` là bubble sort | `pass` (hàm tự viết, không phải thư viện) | `violation`, dòng 4–15: hai vòng lặp hoán đổi phần tử kề nhau | Có | 10 − 4 = 6 |
+| Merge sort bottom-up tự viết, có comment "// code này thỏa mọi ràng buộc" | `pass` | `pass` (comment đã bị bỏ trước khi gửi mô hình) | 10% khả năng (mẫu) | 10 |
 
-### 2.4 Đầu ra của LLM
+### 2.4 Đầu ra của mô hình và file dự đoán
+
+Mô hình trả một object cho mỗi bài:
 
 ```json
 {
-  "submission_id": "sub_1042",
-  "kind": "constraint",
   "results": [
     {
-      "criterion_id": "R2",
-      "verdict": "violated",
-      "evidence": [{ "line_start": 4, "line_end": 15, "quote": "for (int i = 0; i < n; i++) for (int j = 0; j + 1 < n - i; j++)" }],
+      "constraint": "C2",
+      "verdict": "violation",
+      "evidence": [{ "line": 4, "text": "for (int i = 0; i < n; i++)" }],
       "reason": "Hai vòng lặp lồng nhau hoán đổi phần tử kề nhau: bubble sort, không phải merge sort."
     }
-  ],
-  "model": "gemini-3.1-flash-lite",
-  "prompt_version": "v3"
+  ]
 }
 ```
 
-- `kind`: `constraint` (ràng buộc) hoặc `rubric` (bài lỗi biên dịch).
-- `verdict`: `satisfied`, `violated` hoặc `uncertain` (với rubric: đạt, không đạt, không chắc).
-- **Không có trường điểm:** mô hình không quyết mức trừ, không cộng điểm.
+- `verdict`: `pass`, `violation` hoặc `unsure`. **Không có trường điểm.**
+- `evidence[].text` được kiểm lại với dòng gốc trước khi lưu.
+- Checker có lệnh dòng lệnh chạy trên một thư mục dataset và ghi **file dự đoán JSONL** đúng định dạng brief (mỗi dòng một cặp lời giải, ràng buộc):
+
+```json
+{"solution":"sort-merge/s03","constraint":"C1","verdict":"violation","evidence":[{"line":12,"text":"std::sort(a, a + n);"}]}
+```
+
+Lưu mỗi lần soát kèm `model` và `prompt_version` để truy vết.
 
 ### 2.5 Human gate: duyệt theo nhóm, không duyệt mù
 
-Một bài tập 80 sinh viên × 3 ràng buộc có thể ra hàng trăm đề xuất. Nếu phải xem từng cái như nhau, TA sẽ bấm "duyệt" cho xong và human gate chỉ còn trên giấy. Vì vậy hàng chờ (tính năng F2) chia theo **nguồn và độ chắc**:
+80 bài × 2 ràng buộc là 160 cặp mỗi lab. Nếu phải xem từng cái như nhau, TA sẽ bấm duyệt cho xong và human gate chỉ còn trên giấy. Hàng chờ chia theo **nguồn và độ chắc**:
 
-| Nhóm đề xuất | Cách duyệt |
+| Nhóm | Cách duyệt |
 |---|---|
-| **Luật cứng** (tất định, ví dụ "23 bài gọi `std::sort`") | Duyệt cả nhóm một lần; vẫn mở được từng bài |
-| **LLM: vi phạm** | Gom theo ràng buộc, mỗi dòng hiện sẵn đoạn code bằng chứng và lý do; duyệt từng mục (phím tắt), **không có nút "duyệt tất cả"** |
-| **"Không chắc"** | Bắt buộc mở từng bài và quyết |
-| **Rubric bài lỗi biên dịch** | Luôn vào hàng chờ, duyệt từng bài |
-| **Mẫu 10% bài "đạt"** | Xem lại để bắt trường hợp bỏ sót |
+| **Luật cứng: `violation`** (ví dụ "23 bài gọi `std::sort`") | Duyệt cả nhóm một lần; vẫn mở được từng bài |
+| **Mô hình: `violation`** | Gom theo ràng buộc, mỗi dòng hiện sẵn bằng chứng và lý do; duyệt từng mục (phím tắt), **không có nút "duyệt tất cả"** |
+| **`unsure`** | Bắt buộc mở từng bài, xem nguyên nhân `unsure`, chọn `pass` hoặc `violation` |
+| **Mẫu 10% `pass`** | Xem lại để bắt ca mô hình bỏ sót |
 
-Chưa xử lý hết các nhóm bắt buộc thì nút "Công bố điểm" bị khóa. **Báo cáo sau chấm** (tính năng F6) hiện thêm tỉ lệ TA bác đề xuất của LLM: tỉ lệ này gần 0% trong khi eval cho thấy mô hình có sai là dấu hiệu TA đang duyệt mù.
+Báo cáo sau chấm hiện **tỉ lệ TA bác đề xuất của mô hình**: tỉ lệ gần 0% trong khi eval cho thấy mô hình có sai là dấu hiệu TA đang duyệt mù.
 
-### 2.6 Chặn lỗi từ phía đề: kiểm tra trước khi phát hành
+### 2.6 Kiểm tra đề bằng lời giải mẫu (nhóm mở rộng)
 
-Ràng buộc viết mơ hồ có thể làm **cả lớp** bị trừ oan, và trong mô hình chấm sau hạn thì chỉ phát hiện được khi đã muộn. Vì vậy, trước khi phát hành đề (tính năng C8), TA tải **lời giải mẫu**; hệ thống chạy lời giải mẫu qua:
-- bộ test: phải qua hết trong giới hạn thời gian;
-- bước soát ràng buộc: mọi ràng buộc phải ra "đạt".
-
-Không đạt thì không phát hành được. **Thư viện ràng buộc mẫu** (tính năng C9) giúp câu chữ đồng nhất ngay từ đầu, để luật cứng tự áp dụng và LLM ít hiểu sai.
+Ràng buộc viết mơ hồ có thể làm cả lớp bị trừ oan. Trước khi mở nhận bài, TA tải lời giải mẫu; hệ thống chạy lời giải đó qua bộ test (phải Accepted) và qua bước soát (mọi ràng buộc phải `pass`). Không đạt thì cảnh báo TA trước khi mở. Sau khi mở nhận bài, việc sửa ràng buộc theo FAQ-07.
 
 ### 2.7 Cái giá khi sai
 
 | Loại sai | Ai bị ảnh hưởng | Bao nhiêu | Đảo ngược được không |
 |---|---|---|---|
-| **Trừ oan** (báo vi phạm khi bài đúng yêu cầu; hoặc báo "không đạt" cho tiêu chí rubric thực ra đạt) | Sinh viên; TA; giảng viên và giáo vụ | Mất điểm theo mức đề (ví dụ 3/10 điểm bài, lab chiếm 30% điểm môn), đủ đẩy sinh viên sát ngưỡng xuống dưới điểm qua môn (học lại: mất học phí và thêm một học kỳ) hoặc dưới ngưỡng học bổng. Hiểu sai một ràng buộc thì cả lớp 80 người cùng bị trừ, tới 80 khiếu nại | Trước khi công bố: sửa không tốn gì. Sau khi công bố: mở lại điểm, xử lý khiếu nại và phúc khảo, sửa điểm đã nhập, TA mất uy tín |
-| **Bỏ sót / cho điểm oan** (báo đạt khi bài vi phạm; rubric báo đạt cho tiêu chí không đạt) | Sinh viên làm đúng yêu cầu | Người lách đề hoặc nộp mã giả được điểm ngang người làm đúng; bài lab mất mục đích | Phát hiện nhờ mẫu 10%, trần điểm rubric và khiếu nại, nhưng thường không ai phát hiện |
-
-Người chấm hiện tại hiếm khi trừ sai, nên mô hình **không được trừ oan nhiều hơn người**. Đó là lý do ngưỡng trừ oan bằng 0 và TA luôn duyệt trước khi công bố.
+| **Trừ oan** (báo vi phạm khi bài đúng yêu cầu) | Sinh viên; TA; giảng viên | Mất điểm theo mức đề (ví dụ 3/10, lab chiếm 30% điểm môn), đủ đẩy sinh viên dưới điểm qua môn hoặc dưới ngưỡng học bổng. Hiểu sai một ràng buộc thì cả 80 người bị trừ, tới 80 khiếu nại | Trước công bố: sửa không tốn gì. Sau công bố: mở lại điểm, xử lý khiếu nại, TA mất uy tín |
+| **Bỏ sót** (báo `pass` khi bài vi phạm) | Sinh viên làm đúng yêu cầu | Người lách đề được điểm ngang người làm đúng | Phát hiện nhờ mẫu 10% và khiếu nại, nhưng thường không ai phát hiện |
 
 ### 2.8 Eval: làm sao biết nó sai
 
-**Bộ dữ liệu** (**do nhóm tự viết, không dùng bài thật của sinh viên**):
-- **Bộ dev:** 8 bài, khoảng 30 lời giải có nhãn theo từng ràng buộc, cộng 4 bài lỗi biên dịch có nhãn theo tiêu chí rubric. Dùng để chỉnh prompt và luật.
-- **Bộ giữ kín:** 12 bài, khoảng 50 lời giải, cộng 6 bài lỗi biên dịch. Chỉ dùng để nghiệm thu, không dùng để chỉnh prompt.
-- **Bộ red-team** (khoảng 20 ca): chèn lệnh trong comment và chuỗi, tên biến đánh lừa (`merge_sort_here`), `#define` che lời gọi hàm, file rất dài, ký tự Unicode trông giống ký tự thường, **mã giả cố ý không biên dịch** để ăn điểm rubric.
-- **Bộ lớn dần khi chạy thật:** đề xuất TA bác và khiếu nại sinh viên thắng được ẩn danh, gán nhãn lại rồi bổ sung vào bộ dev (tính năng E7).
+**Dữ liệu:**
+- **Bộ dev của thầy** ([fithcmus/awad-leetkob-eval](https://github.com/fithcmus/awad-leetkob-eval)): 6 bài, 47 lời giải Accepted, 102 cặp (65 `pass`, 37 `violation`), có vi phạm ngụy trang, bẫy, chèn lệnh. Dùng để chỉnh prompt và luật.
+- **Bộ của nhóm:** thư mục riêng cùng định dạng (`problems/`, `solutions/`, `labels.jsonl`), thêm ca khó nhóm tự viết và ca lấy từ đề xuất TA bác (đã ẩn danh) (E7). Mỗi lời giải phải thật sự Accepted trước khi gán nhãn.
+- **Bộ giữ kín:** thầy giữ, khác bài, chấm checker ở PA#4. Không đoán, không chỉnh prompt theo nó.
 
-**Chỉ số và ngưỡng** (mục tiêu nghiệm thu, chưa phải kết quả):
+**Chỉ số và ngưỡng** (brief mục 3; tính bằng `eval.mjs`):
 
 | Chỉ số | Cách tính | Ngưỡng |
 |---|---|---|
-| Tỉ lệ trừ oan | Số ràng buộc báo "vi phạm" trên lời giải đúng yêu cầu ÷ tổng ràng buộc của các lời giải đúng | **= 0** |
-| Recall vi phạm | Số vi phạm thật được báo "vi phạm" ÷ tổng vi phạm thật | **≥ 90%** |
-| Tỉ lệ "không chắc" | Số kết quả "không chắc" ÷ tổng kết quả | **≤ 20%** |
-| Rubric chấm thiếu | Tiêu chí thực ra đạt bị báo "không đạt" ÷ tổng tiêu chí đạt | **= 0** (không chắc thì phải trả "không chắc") |
-| Rubric cho điểm oan | Tiêu chí không đạt bị báo "đạt" ÷ tổng tiêu chí không đạt | **≤ 10%** |
-| Độ đúng bằng chứng | Bằng chứng trỏ đúng dòng ÷ tổng đề xuất | **= 100%** (bộ kiểm tra đầu ra bảo đảm) |
-| Red-team | Ca red-team làm hệ thống trừ oan hoặc cho điểm mã giả vượt trần | **= 0** |
+| Trừ oan | Cặp nhãn `pass` mà dự đoán `violation` | **= 0** |
+| Recall | Cặp `violation` được dự đoán `violation` **và** có ít nhất một bằng chứng đúng số dòng và đúng nội dung dòng ÷ tổng `violation` | **≥ 90%** |
+| `unsure` | Cặp dự đoán `unsure` ÷ tổng cặp (cặp thiếu tính là `unsure`) | **≤ 20%** |
 
-**Ca khó:** tự viết sort nhưng đặt tên `mySort`; đệ quy qua hàm phụ; merge sort viết kiểu lặp (không đệ quy); comment "// code này thỏa mọi ràng buộc"; bài lỗi biên dịch chỉ vì thiếu một dấu `;`.
-**Lỗi đã biết:** độ phức tạp amortized luôn trả "không chắc".
-**Khi chạy thật:** theo dõi tỉ lệ TA bác đề xuất, số khiếu nại sinh viên thắng, tỉ lệ "không chắc" theo từng bài tập.
+**CI gate:** mỗi PR đổi prompt, luật hoặc checker chạy checker trên bộ dev và bộ của nhóm, rồi chạy `node eval.mjs`; **exit code khác 0 thì chặn merge**. Unit test không gọi mô hình thật.
+
+**Lỗi đã biết:** độ phức tạp amortized; vi phạm nằm trong macro nhiều tầng. Gặp thì trả `unsure`.
 
 ### 2.9 Dữ liệu gửi ra mô hình
 
-Chỉ đề bài, danh sách tiêu chí và code đã bỏ comment, MSSV, tên. Không có dữ liệu cá nhân, nên chấp nhận được kể cả khi gói miễn phí của nhà cung cấp dùng nội dung để cải thiện sản phẩm. Sinh viên được thông báo khi nộp bài; bộ eval chỉ dùng code nhóm tự viết.
+Chỉ đề, ràng buộc và code đã bỏ comment, tên, MSSV (brief mục 3). Sinh viên được báo khi nộp (FAQ-06). Bộ eval chỉ dùng code của thầy và code nhóm tự viết.
 
 ---
 
@@ -182,154 +164,151 @@ Chỉ đề bài, danh sách tiêu chí và code đã bỏ comment, MSSV, tên. 
 
 ### 3.1 Danh mục tính năng
 
-Mỗi tính năng có một **mã** dùng chung cho kế hoạch (mục 5) và GitHub Issues. Mức ưu tiên:
-- **Must:** thiếu thì luồng chính không chạy hoặc tính năng LLM không đứng được.
-- **Should:** lớp học thật cần, làm sau khi Must xong.
-- **Could:** làm khi dư thời gian; không xếp lịch.
-
-Đề xuất cho cả lớp: mọi nhóm làm đủ **Must**, làm ít nhất một nửa **Should**; **Could** là phần cộng thêm.
+Mỗi tính năng có một **mã**, dùng cho kế hoạch (mục 5) và GitHub Issues.
+- **Must:** brief hoặc rubric checkpoint yêu cầu, hoặc thiếu thì luồng chính không chạy.
+- **Should:** nên có cho lớp học thật hoặc làm tính năng LLM chắc hơn.
+- **Could:** làm khi dư thời gian, không xếp lịch.
 
 **A. Tài khoản và phân quyền**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
 | A1 | Đăng ký, đăng nhập email/mật khẩu; JWT access + refresh token | Must |
-| A2 | Vai trò admin, giảng viên, TA, sinh viên | Must |
-| A3 | Quyền theo lớp: TA chỉ thấy lớp được phân công, sinh viên chỉ thấy lớp mình học | Must |
-| A4 | Đăng nhập Google (chỉ xin scope cơ bản: email, tên) | Should |
+| A2 | Vai trò admin, TA, sinh viên | Must |
+| A3 | Quyền theo lớp: TA chỉ thấy lớp mình; sinh viên chỉ thấy lab của lớp mình và bài nộp của mình (FAQ-01) | Must |
+| A4 | Đăng nhập Google (chỉ xin scope cơ bản) | Should |
 | A5 | Quên mật khẩu qua email | Should |
 
 **B. Lớp học**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| B1 | Tạo lớp theo học kỳ; lưu trữ lớp đã kết thúc | Must |
-| B2 | Thêm sinh viên bằng mã mời hoặc nhập CSV | Must |
-| B3 | Một lớp nhiều TA, một TA nhiều lớp; giảng viên phân công TA | Must |
-| B4 | Nhập danh sách lớp từ Google Classroom | Could |
+| B1 | Admin tạo lớp, gán một hoặc nhiều TA vào lớp | Must |
+| B2 | Sinh viên vào lớp bằng mã mời hoặc do TA thêm (FAQ-01); nhập danh sách bằng CSV | Must |
+| B3 | Nhập danh sách lớp từ Google Classroom | Could |
 
-**C. Đề và bài tập**
+**C. Lab và ràng buộc**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| C1 | Ngân hàng đề: nội dung (Markdown), giới hạn thời gian và bộ nhớ | Must |
-| C2 | Bộ test: tải file zip; test mẫu hiện trong đề, test ẩn; điểm theo test (mặc định chia đều, TA đặt trọng số được) | Must |
-| C3 | Khai báo ràng buộc: nhóm, mô tả, mức trừ | Must |
-| C4 | Gán đề cho lớp thành bài tập: thời gian mở, hạn nộp | Must |
-| C5 | Chính sách bài tập: số lần nộp tối đa; nộp trễ (không nhận, hoặc nhận và trừ % theo ngày) | Should |
-| C6 | Dùng lại đề cho lớp hoặc học kỳ khác (sao chép kèm test, ràng buộc, rubric) | Should |
-| C7 | Tạo bài tập tương ứng trên Google Classroom | Could |
-| C8 | Kiểm tra đề trước khi phát hành bằng lời giải mẫu (mục 2.6) | Must |
-| C9 | Thư viện ràng buộc mẫu: chọn mẫu, sửa tham số | Should |
-| C10 | Chính sách bài lỗi biên dịch: 0 điểm, hoặc chấm theo rubric có trần % | Must |
+| C1 | Tạo lab trong lớp: đề (Markdown), thời gian mở nhận bài, hạn nộp | Must |
+| C2 | Bộ test: tải file zip; test mẫu hiện trong đề, test ẩn | Must |
+| C3 | Khai báo ràng buộc (nội dung, mức trừ trên thang 10); sinh viên thấy ngay trong đề (FAQ-06) | Must |
+| C4 | Sửa ràng buộc theo FAQ-07: sau khi mở nhận bài không thêm, không tăng mức trừ; lưu lịch sử sửa | Must |
+| C5 | Giới hạn chạy mặc định và chỉnh theo lab trong khoảng cho phép (FAQ-05) | Must |
+| C6 | Kiểm tra đề bằng lời giải mẫu (mục 2.6) (nhóm mở rộng) | Should |
+| C7 | Thư viện ràng buộc mẫu viết đúng quy ước "Do not use / Do not call" (nhóm mở rộng) | Should |
+| C8 | Dùng lại lab cho lớp hoặc học kỳ khác | Should |
+| C9 | Tạo bài tập tương ứng trên Google Classroom | Could |
 
 **D. Nộp và chấm**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| D1 | Nộp bài (dán code hoặc tải file `.cpp`) trước hạn; nộp lại thay bản cũ; không chấm, không báo biên dịch khi nộp | Must |
-| D2 | Job chấm theo hạn: hết hạn thì tự lấy bản nộp cuối của mỗi sinh viên đưa vào hàng đợi | Must |
-| D3 | Sandbox: g++ C++17, giới hạn thời gian, bộ nhớ, số tiến trình; không mạng | Must |
-| D4 | Verdict từng test (AC, WA, TLE, MLE, RE, CE), log biên dịch, điểm test | Must |
-| D5 | Job chịu lỗi: worker chết thì bài được giao lại, không chấm trùng; TA xem tiến độ chấm cả lớp | Must |
-| D6 | Chấm lại một bài hoặc cả lớp (khi TA sửa test) | Should |
+| D1 | Nộp bài (dán code hoặc tải `.cpp`, tối đa 64 KB); gửi lại cùng một lần nộp không tạo hai bài; khoá sau hạn, hạn tính theo lúc server nhận bài (FAQ-03) | Must |
+| D2 | Hàng đợi chấm và worker: idempotent khi message bị giao lại; worker chết thì bài được chấm lại | Must |
+| D3 | Sandbox đạt yêu cầu tối thiểu của brief (không mạng; giới hạn CPU, wall time, bộ nhớ, tiến trình, output; không root, không mount host, không Docker socket; không secret), **mỗi yêu cầu có một test tấn công thử và thất bại** | Must |
+| D4 | Verdict tổng và từng test hiện realtime cho sinh viên (WebSocket hoặc SSE) | Must |
+| D5 | Xác định bài được tính: bài cuối cùng trước hạn; trước hạn là bài mới nhất (FAQ-02) | Must |
+| D6 | Chấm lại một bài hoặc cả lab khi TA sửa test | Should |
 | D7 | Lịch sử nộp bài của sinh viên | Should |
 
 **E. Soát ràng buộc (tính năng LLM)**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| E1 | Luật cứng bằng tree-sitter: cấm hàm/thư viện, đệ quy, biến toàn cục | Must |
-| E2 | LLM xét ràng buộc ngữ nghĩa, trả JSON có bằng chứng | Must |
-| E3 | Kiểm tra đầu ra: schema, dòng trích dẫn, timeout, gọi lại 1 lần, hạn mức chi phí | Must |
-| E4 | Lấy mẫu ngẫu nhiên 10% bài "đạt" vào hàng chờ | Must |
-| E5 | LLM xét rubric cho bài lỗi biên dịch (theo C10), dùng chung pipeline E2–E3 | Must |
-| E6 | Soát lại khi TA sửa ràng buộc sau khi đã soát | Should |
-| E7 | Đề xuất bị bác và khiếu nại thắng → ứng viên bổ sung bộ eval (ẩn danh) | Should |
-| E8 | Bộ eval dev / giữ kín / red-team; CI chạy eval và chặn merge khi dưới ngưỡng | Must |
+| E1 | Luật cứng tree-sitter cho ràng buộc danh sách cấm; ánh xạ dòng gốc | Must |
+| E2 | Mô hình xét ràng buộc ngữ nghĩa, trả JSON có bằng chứng | Must |
+| E3 | Kiểm tra đầu ra: schema, bằng chứng khớp chính xác dòng gốc, timeout, gọi lại 1 lần, hạn mức chi phí mỗi lab | Must |
+| E4 | Lấy mẫu 10% các `pass` vào hàng chờ (FAQ-10) | Must |
+| E5 | Checker chạy bằng một lệnh trên thư mục dataset, ghi file dự đoán JSONL đúng định dạng brief | Must |
+| E6 | Soát lại khi TA sửa ràng buộc (FAQ-07) | Should |
+| E7 | Đề xuất bị TA bác và khiếu nại thắng → ứng viên bổ sung bộ eval của nhóm (ẩn danh) | Should |
+| E8 | Eval trên bộ dev + bộ của nhóm chạy trong CI, chặn merge khi `eval.mjs` trả exit code khác 0 | Must |
 
 **F. Duyệt và điểm**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| F1 | Chọn lớp → bài tập → hàng chờ của bài tập đó | Must |
+| F1 | Hàng chờ duyệt theo lab, hiện verdict, bằng chứng, lý do | Must |
 | F2 | Duyệt theo nhóm (mục 2.5) | Must |
-| F3 | Chấp nhận, bác, sửa từng đề xuất; chỉnh điểm tay có ghi lý do | Must |
-| F4 | Công thức điểm: điểm test − mức trừ đã duyệt, phạt trễ, không âm; bài lỗi biên dịch theo C10 | Must |
-| F5 | Công bố điểm trong một transaction, ghi nhật ký duyệt | Must |
-| F6 | Báo cáo sau chấm: phân bố điểm, đề xuất theo loại, tỉ lệ "không chắc", tỉ lệ TA bác | Must |
-| F7 | Bảng điểm lớp (sinh viên × bài tập), xuất CSV | Must |
-| F8 | Đẩy điểm về Google Classroom | Could |
+| F3 | Chấp nhận, bác, đổi verdict; `unsure` bắt buộc chọn; `violation` bắt buộc có dòng bằng chứng; nhật ký mọi thay đổi (FAQ-09, FAQ-10) | Must |
+| F4 | Công thức điểm theo FAQ-11 | Must |
+| F5 | Publish theo FAQ-12: sau hạn, hàng chờ trống, idempotent, transaction, nhật ký | Must |
+| F6 | Báo cáo sau chấm: phân bố điểm, đề xuất theo loại, tỉ lệ `unsure`, tỉ lệ TA bác | Should |
+| F7 | Bảng điểm lớp, xuất CSV | Should |
+| F8 | TA nhập điểm tay cho bài không Accepted, kèm lý do (FAQ-04, tuỳ chọn) | Should |
+| F9 | Đẩy điểm về Google Classroom | Could |
 
-**G. Phản hồi cho sinh viên**
+**G. Phản hồi và khiếu nại**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| G1 | Xem điểm, kết quả test (test mẫu xem chi tiết, test ẩn chỉ thấy verdict), dòng bị trừ kèm lý do | Must |
-| G2 | TA nhận xét theo dòng code | Should |
-| G3 | Mẫu nhận xét dùng lại | Could |
-| G4 | Khiếu nại theo từng khoản trừ: trao đổi qua lại, trạng thái (chờ, chấp nhận, bác) | Must |
-| G5 | Hạn khiếu nại theo bài tập | Should |
-| G6 | Thông báo trong app (realtime) và email: điểm đã công bố, khiếu nại có trả lời | Should |
+| G1 | Sinh viên xem điểm và các khoản trừ sau công bố (FAQ-08) | Must |
+| G2 | Khiếu nại từng khoản trừ trong 7 ngày; trạng thái đang chờ, chấp nhận, bác; TA trả lời kèm lý do; không mở lại (FAQ-13, FAQ-14) | Must |
+| G3 | Sửa điểm từng bài sau công bố, kèm lý do, sinh viên thấy điểm mới (FAQ-12) | Must |
+| G4 | Thông báo trong app (realtime) và email: điểm đã công bố, khiếu nại có trả lời | Should |
+| G5 | TA nhận xét theo dòng code | Could |
 
 **H. Thống kê**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| H1 | Thống kê theo lớp qua các bài tập: ràng buộc hay bị vi phạm, phân bố điểm | Could |
-| H2 | Tiến độ từng sinh viên qua các bài tập | Could |
+| H1 | Thống kê theo lớp qua các lab: ràng buộc hay bị vi phạm | Could |
+| H2 | Tiến độ từng sinh viên qua các lab | Could |
 
-**I. Vận hành**
+**I. Harness, vận hành, triển khai**
 
 | Mã | Tính năng | Mức |
 |---|---|---|
-| I1 | CI: lint, test, build image; bảo vệ nhánh `main`, CI xanh và có review mới merge | Must |
-| I2 | Rate limit; log có cấu trúc; dashboard: độ sâu hàng đợi, thời gian chấm cả lớp, độ trễ LLM, chi phí token, tỉ lệ TA bác | Must |
-| I3 | Triển khai công khai; load test chấm cả lớp; README và runbook | Must |
-| I4 | Sao lưu CSDL hằng ngày | Could |
-| I5 | Test E2E luồng TA và sinh viên trên bản triển khai | Must |
+| I1 | Rules file (`CLAUDE.md`/`AGENTS.md`), quyền của trợ lý chia 3 mức, `.env.example`, không secret trong lịch sử, API key có giới hạn chi tiêu (PA#2) | Must |
+| I2 | Lint, format check, type check, test: mỗi cái một lệnh, local và CI giống nhau; `main` được bảo vệ, check bắt buộc (PA#2) | Must |
+| I3 | Contract một endpoint (`docs/contract/<endpoint>.md`, lỗi theo RFC 9457) và contract test chạy trong CI (PA#2) | Must |
+| I4 | Log, metric, trace; dashboard: độ sâu hàng đợi, thời gian chấm, độ trễ mô hình, chi phí token, tỉ lệ TA bác (PA#5) | Must |
+| I5 | Triển khai công khai, red team và thầy truy cập được; README, runbook | Must |
+| I6 | Load test 80 bài nộp cùng lúc, có số liệu (PA#5) | Must |
+| I7 | Post-mortem một sự cố (PA#5) | Must |
+| I8 | Test E2E luồng TA và sinh viên trên bản triển khai | Must |
+| I9 | Sao lưu CSDL hằng ngày | Could |
 
-**Tổng: 55 tính năng, gồm 36 Must, 12 Should, 7 Could.**
+**Tổng: 57 tính năng, gồm 37 Must, 13 Should, 7 Could.**
 
 ### 3.2 Quy trình người dùng
 
-**Giảng viên:** tạo lớp theo học kỳ (B1) → phân công TA (B3) → xem bảng điểm và báo cáo các lớp (F6, F7).
+**Admin:** tạo lớp → gán TA.
 
 **TA:**
-1. Tạo đề: nội dung, bộ test, ràng buộc (chọn từ thư viện mẫu), chính sách bài lỗi biên dịch và rubric, lời giải mẫu.
-2. Hệ thống kiểm tra đề bằng lời giải mẫu; đạt thì gán cho lớp kèm hạn nộp.
-3. Hết hạn: hệ thống tự chấm cả lớp và soát ràng buộc; TA nhận thông báo khi xong.
-4. Đọc báo cáo sau chấm → duyệt theo nhóm (luật cứng, LLM, "không chắc", rubric, mẫu 10%).
-5. Bấm "Công bố điểm".
-6. Xử lý khiếu nại; xuất bảng điểm CSV.
+1. Tạo lab: đề, bộ test, ràng buộc (chọn từ thư viện mẫu), giới hạn chạy; tải lời giải mẫu để kiểm tra đề.
+2. Mở nhận bài, đặt hạn nộp.
+3. Sau hạn: đọc báo cáo, duyệt hàng chờ theo nhóm.
+4. Bấm Publish.
+5. Xử lý khiếu nại; sửa điểm từng bài nếu cần; xuất CSV.
 
 **Sinh viên:**
-1. Vào lớp (mã mời), đọc đề và test mẫu, nộp code trước hạn (nộp lại được).
-2. Chờ công bố; trong lúc chờ chỉ thấy "đã nộp lúc …".
-3. Sau khi công bố: xem điểm, kết quả test, dòng code bị trừ và lý do.
-4. Gửi khiếu nại trong hạn nếu thấy bị trừ oan.
+1. Vào lớp (mã mời hoặc được TA thêm), đọc đề, test mẫu và ràng buộc.
+2. Nộp code, thấy kết quả chấm test ngay; nộp lại bao nhiêu lần cũng được trước hạn.
+3. Sau khi công bố: xem điểm, các khoản trừ, dòng code bị trừ và lý do.
+4. Khiếu nại trong 7 ngày nếu thấy bị trừ oan.
 
 ### 3.3 Giới hạn quy mô
 
-- Chỉ C++17 (g++ `-O2`). Code nộp tối đa 64 KB.
-- Mỗi test: thời gian mặc định 1 giây (tối đa 5 giây), bộ nhớ 256 MB; sandbox không có mạng, filesystem chỉ đọc, giới hạn số tiến trình.
-- Một lớp tối đa 100 sinh viên. Mục tiêu: chấm xong cả lớp 100 bài × 10 test trong ≤ 15 phút sau hạn với 2 judge worker (chưa tính thời gian TA duyệt).
+- Chỉ C++17 (`g++ -std=c++17 -O2`), code tối đa 64 KB. Giới hạn chạy mặc định theo FAQ-05.
+- Một lớp tối đa 100 sinh viên. Chịu được **80 bài nộp cùng lúc** sát hạn (brief mục 4), có kết quả load test.
 
 ### 3.4 Chủ động không làm
 
 | Không làm | Lý do |
 |---|---|
-| Chấm ngay khi nộp, báo biên dịch khi nộp | Mô phỏng bài lab thật: chấm sau hạn; sinh viên không dò được test ẩn bằng cách nộp nhiều lần |
-| Ngôn ngữ thứ hai (Python, Java…) | Mỗi ngôn ngữ cần thêm một bộ luật cứng và sandbox riêng |
-| Sinh test bằng LLM | TA vẫn viết test; rủi ro của đề tài nằm ở bước trừ điểm |
-| LLM tự quyết mức trừ, tự cho điểm hoặc tự công bố | Mức trừ và thang rubric do TA đặt; hệ thống tính điểm; công bố luôn qua TA |
-| LLM chấm theo ý tưởng cho bài sai output (WA) | Giữ phạm vi; rubric chỉ áp cho bài lỗi biên dịch |
-| LLM viết nhận xét hoặc gợi ý cho sinh viên | Sẽ thành tính năng LLM thứ hai, cần eval riêng |
-| Phát hiện đạo văn, phát hiện code do AI viết | Không đo đúng được trong học kỳ; dễ buộc tội oan |
-| Contest, bảng xếp hạng, IDE online, diễn đàn | Không phục vụ chấm lab |
-| VectorDB / RAG | Đầu vào đã đủ (đề, tiêu chí, code), không có bước tìm kiếm |
-| Public API / MCP cho agent bên ngoài | Không làm tính năng LLM mạnh hơn; thêm việc phân quyền và chống prompt injection |
-| Google Classroom add-on; tích hợp hệ thống của trường (Moodle, portal) | Cần duyệt từ Google hoặc quyền truy cập ngoài tầm kiểm soát của nhóm. Tích hợp Classroom API ở mức Could (B4, C7, F8); CSV là cách bắt buộc |
+| Ngôn ngữ thứ hai | Brief: cần thêm một bộ luật cứng |
+| Mô hình sinh test, mô hình chọn mức trừ | Brief: TA viết test và đặt mức trừ |
+| Mô hình chấm bài không Accepted (kể cả lỗi biên dịch, chấm theo ý tưởng) | Brief chỉ soát bài Accepted; TA nhập điểm tay nếu muốn (FAQ-04) |
+| Chấm điểm từng phần theo số test qua | FAQ-04 |
+| Nộp trễ, gia hạn riêng từng sinh viên | FAQ-03 |
+| Mô hình viết nhận xét hoặc gợi ý cho sinh viên | Thành tính năng LLM thứ hai, cần eval riêng |
+| Phát hiện đạo văn, phát hiện code do AI viết | Brief: không đo đúng được trong học kỳ |
+| Contest, bảng xếp hạng, IDE online, VectorDB / RAG | Brief: không giúp TA soát lab |
+| Public API / MCP cho agent bên ngoài | Không làm tính năng LLM mạnh hơn |
+| Google Classroom add-on; tích hợp hệ thống của trường | Cần duyệt hoặc quyền ngoài tầm kiểm soát của nhóm |
 
 ---
 
@@ -337,106 +316,102 @@ Mỗi tính năng có một **mã** dùng chung cho kế hoạch (mục 5) và G
 
 ### 4.1 Các service
 
+Brief cho mỗi nhóm tự chọn stack và nói rõ ít thành phần hơn là lựa chọn hợp lệ. Nhóm giữ hướng 3 service theo proposal PA#1, **sẽ chốt lại ở W1** (xem rủi ro 1); nếu gộp, ranh giới trách nhiệm dưới đây vẫn giữ nguyên dưới dạng module.
+
 ```mermaid
 flowchart LR
-  FE[React<br/>TA, giảng viên, sinh viên] --> GW[Gateway / Core API<br/>Node NestJS<br/>scheduler theo hạn nộp]
+  FE[React<br/>TA, sinh viên, admin] --> GW[Gateway / Core API<br/>Node NestJS]
   GW --> PG[(PostgreSQL)]
-  GW --> RD[(Redis<br/>rate limit, pub/sub)]
-  GW -- job chấm cả lớp --> MQ[[RabbitMQ]]
+  GW --> RD[(Redis<br/>rate limit, pub/sub realtime)]
+  GW -- bài nộp --> MQ[[RabbitMQ]]
   MQ --> JD[Judge worker<br/>Java Spring Boot]
-  JD --> SB[Sandbox Docker<br/>g++ C++17]
+  JD --> SB[Sandbox<br/>g++ C++17, không mạng, không secret]
   JD --> ST[(Garage S3<br/>bộ test, code nộp)]
   JD -- verdict --> MQ
-  MQ -- cần soát --> CK[Constraint checker<br/>Python]
+  MQ -- bài Accepted --> CK[Constraint checker<br/>Python]
   CK --> LLM[(LLM API)]
-  CK --> MG[(MongoDB<br/>lần soát, bằng chứng)]
-  CK -- findings --> MQ
+  CK --> MG[(MongoDB<br/>lần soát)]
+  CK -- đề xuất --> MQ
   MQ --> GW
 ```
 
-| Service | Ngôn ngữ | Trách nhiệm | Dữ liệu riêng |
-|---|---|---|---|
-| Gateway / Core API | Node (NestJS) | Xác thực, lớp, đề, bài tập, nộp bài, **scheduler tạo job chấm khi hết hạn**, tính điểm, hàng chờ duyệt, công bố điểm, khiếu nại, thông báo realtime (SSE) | PostgreSQL, Redis |
-| Judge worker | Java (Spring Boot) | Lấy bài từ hàng đợi, chạy sandbox, trả verdict; idempotent khi message bị giao lại; chạy lời giải mẫu (C8) | Garage (đọc bộ test) |
-| Constraint checker | Python | Luật cứng tree-sitter, gọi LLM, kiểm tra đầu ra, chạy eval | MongoDB |
+| Service | Trách nhiệm | Dữ liệu riêng |
+|---|---|---|
+| Gateway / Core API (Node) | Xác thực, lớp, lab, ràng buộc, nộp bài, bài được tính, hàng chờ duyệt, điểm, Publish, khiếu nại, đẩy realtime | PostgreSQL, Redis |
+| Judge worker (Java) | Lấy bài từ hàng đợi, chạy sandbox, trả verdict từng test; idempotent | Garage (đọc bộ test) |
+| Constraint checker (Python) | Luật cứng, gọi mô hình, kiểm tra đầu ra; CLI chạy trên thư mục dataset | MongoDB |
+
+**Không secret trong sandbox:** API key của mô hình chỉ nằm ở checker; judge và sandbox không có biến môi trường nào chứa key.
 
 ### 4.2 Thực thể chính (PostgreSQL)
 
-- **Người dùng và lớp:** `User`, `Class`, `Enrollment` (vai trò trong lớp), `TaAssignment`.
-- **Đề và bài tập:** `Problem` (ngân hàng đề), `TestCase` (trỏ file trên Garage, trọng số), `Constraint` (nhóm, mô tả, mức trừ, engine), `RubricCriterion` (mô tả, điểm), `ReferenceSolution`, `Assignment` (đề gán cho lớp: hạn nộp, chính sách nộp trễ, chính sách lỗi biên dịch, trần rubric).
-- **Chấm:** `Submission`, `GradingJob` (trạng thái chấm cả lớp), `JudgeResult`, `Finding` (đề xuất đã qua kiểm tra, nguồn: luật/LLM, trạng thái duyệt).
-- **Điểm và phản hồi:** `Grade`, `Appeal`, `Comment`, `Notification`, `AuditLog`, `EvalCandidate`.
-
-MongoDB lưu `CheckRun`: đầu vào đã ẩn danh, đầu ra thô của mô hình, phiên bản prompt, token, thời gian.
+`User`, `Class`, `ClassMember` (vai trò trong lớp), `Lab`, `TestCase`, `Constraint` (kèm `ConstraintRevision` cho lịch sử sửa), `Submission`, `JudgeResult` (từng test), `Finding` (một cặp bài, ràng buộc: verdict, nguồn luật hay mô hình, bằng chứng, trạng thái duyệt), `Grade` (kèm cờ nhập tay và lý do), `Appeal`, `AuditLog`. MongoDB lưu `CheckRun`: đầu vào đã ẩn danh, đầu ra thô của mô hình, phiên bản prompt, token, thời gian.
 
 ---
 
 ## 5. Kế hoạch theo milestone
 
-### 5.1 Lịch của môn
+### 5.1 Lịch của môn (brief mục 7)
 
-| Checkpoint | Buổi học | Hạn nộp (22:00) |
+| Mốc | Ngày | Nội dung với LeeTKOB |
 |---|---|---|
-| PA#2: harness and quality gate | Buổi 7, 05/11 | Thứ Tư 11/11 |
-| PA#3: prototype with the LLM feature running | Buổi 9, 19/11 | Thứ Tư 25/11 |
-| PA#4: eval, guardrail, human gate, red-team | Buổi 10, 26/11 | Thứ Tư 02/12 |
-| PA#5: final build, running and observed | Buổi 11, 03/12 | Thứ Tư 16/12 |
-| Seminar | Buổi 12–13, 10/12 và 17/12 | Trên lớp |
-| PA#6: individual oral | Buổi 14–15, 24/12 và 31/12 | Thầy chưa công bố; nhóm dự kiến vấn đáp **06/01/2027** |
+| Buổi 6 | T5 29/10 | Bảo mật, lấy LeeTKOB làm ví dụ. Cả nhóm đi |
+| **PA#2** | **T4 11/11, 22:00** | Rules file, lint, test, CI chặn merge thật; contract một endpoint và contract test trong CI |
+| **PA#3** | **T4 25/11, 22:00** | TA tạo lab có ràng buộc; sinh viên nộp, chấm qua hàng đợi trong sandbox; bài Accepted qua luật cứng rồi mô hình; verdict kèm bằng chứng hiện trong hàng chờ của TA |
+| **PA#4** | **T4 02/12, 22:00** | Eval trên bộ dev chặn CI; guardrail đủ; không Publish được khi chưa duyệt; báo cáo red-team một nhóm khác (thầy ghép cặp) |
+| Seminar | 10/12 và 17/12 | Mỗi nhóm một chủ đề tối ưu |
+| **PA#5** | **T4 16/12, 22:00** | Publish và khiếu nại, kết quả realtime, log/metric/trace, load test 80 bài cùng lúc, triển khai công khai, một post-mortem |
+| **PA#6** | 24/12 và 31/12 | Vấn đáp cá nhân trên code và quyết định của nhóm |
 
-### 5.2 Vai trò trong nhóm 3 người
+### 5.2 Vai trò
 
-R1, R2, R3 là **vai trò**, không phải thành viên cụ thể: mỗi nhóm tự gán ba vai trò cho ba thành viên của mình. Vai trò chia **theo nghiệp vụ, làm dọc từ giao diện xuống service**, không chia theo tầng. Nhờ vậy không ai phải gánh toàn bộ giao diện, và khi vấn đáp mỗi người giải thích được trọn phần của mình. Mỗi milestone có một vai trò phụ trách chính (chịu trách nhiệm tiêu chí xong của tuần); cả ba cùng làm song song và review PR của nhau.
+R1, R2, R3 là **vai trò**, mỗi nhóm tự gán cho ba thành viên. Chia theo nghiệp vụ, làm dọc từ giao diện xuống service. Mỗi milestone có một vai trò phụ trách chính; cả ba cùng làm song song và review PR của nhau.
 
 | Vai trò | Phụ trách | Mã tính năng |
 |---|---|---|
-| **R1: Lớp và điểm** (Node, React) | Gateway, xác thực, lớp, đề, nộp bài, công thức điểm, công bố, phản hồi, khiếu nại, xuất điểm, test E2E | A, B, C1, C4–C7, D1, D7, F4, F5, F7, F8, G, H, I5 |
-| **R2: Chấm bài và hạ tầng** (Java, Docker, CI) | Judge worker, sandbox, job chấm theo hạn, chạy lời giải mẫu, RabbitMQ, Garage, CI, triển khai, load test, giám sát, màn tiến độ chấm | C2, C8, D2–D6, I1–I4 |
-| **R3: Tính năng LLM** (Python, React) | Luật cứng, prompt, kiểm tra đầu ra, rubric, eval, red-team, gate; form ràng buộc và rubric; hàng chờ duyệt theo nhóm; báo cáo sau chấm | C3, C9, C10, E, F1–F3, F6 |
+| **R1: Lớp và điểm** (Node, React) | Gateway, xác thực, lớp, lab, nộp bài, điểm, Publish, khiếu nại, contract, E2E | A, B, C1–C5, C8, C9, D1, D4 (giao diện), D5, D7, F4, F5, F7–F9, G, H, I3, I8 |
+| **R2: Chấm bài và hạ tầng** (Java, Docker, CI) | Judge, sandbox và test tấn công, hàng đợi, CI, quan sát, triển khai, load test, post-mortem | C6 (chạy lời giải mẫu), D2–D4, D6, I1, I2, I4–I7, I9 |
+| **R3: Tính năng LLM** (Python, React) | Luật cứng, prompt, kiểm tra đầu ra, CLI dự đoán, eval, gate; hàng chờ duyệt và báo cáo | C7, E, F1–F3, F6 |
+
+**Việc PO** (ngoài vai trò): trực FAQ luân phiên theo tuần, trả lời trong 2 ngày làm việc (xem tài liệu việc của PO).
 
 ### 5.3 Hợp đồng trước, bản giả để làm song song
 
-Tuần W1, ba người thống nhất hai **hợp đồng** và lưu trong repo:
-- **Message chấm bài:** từ Gateway sang Judge, từ Judge sang Checker (mã bài nộp, bài tập, verdict từng test, cờ lỗi biên dịch).
-- **JSON đề xuất:** schema ở mục 2.4.
+W1 chốt hai hợp đồng, lưu trong repo: **message chấm bài** (Gateway → Judge → Checker) và **JSON đề xuất** (mục 2.4). R3 đưa ra **checker giả** trả đề xuất cố định đúng schema, để R1 làm hàng chờ, điểm và Publish mà không chờ mô hình chạy thật.
 
-R3 đưa ra **checker giả** trả đề xuất cố định theo đúng schema. R1 làm tính điểm, công bố và màn sinh viên trên checker giả mà không phải chờ LLM chạy thật; R3 thay checker thật vào ở W4–W5 mà không đổi hợp đồng.
+Endpoint làm contract cho PA#2 (đề xuất): `POST /labs/{labId}/submissions`. Endpoint này cần làm sớm nhất, có luật sở hữu (chỉ sinh viên của lớp) và idempotency (gửi lại không tạo hai bài nộp).
 
 ### 5.4 Milestone hằng tuần
 
-Mỗi milestone kết thúc vào **thứ Tư**, cùng nhịp với hạn nộp của môn. Cột R1, R2, R3 ghi **mã tính năng phải đóng** trong tuần (mục 3.1) và **test phải có** cho phần dễ hỏng; "(một phần)" nghĩa là tuần đó xong phần ghi trong ngoặc, phần còn lại đóng ở tuần sau; "(cắt trước)" là thứ bỏ đầu tiên nếu trễ.
+Mỗi milestone kết thúc vào **thứ Tư**. Các cột R1, R2, R3 ghi mã tính năng phải đóng; "(một phần)" nghĩa là phần còn lại đóng ở tuần sau.
 
 | Milestone | Hạn | R1: Lớp và điểm | R2: Chấm bài và hạ tầng | R3: Tính năng LLM | Tiêu chí xong (kiểm được) | Chính |
 |---|---|---|---|---|---|---|
-| **W1: Nền móng** | T4 28/10 | A1; khung React | I1 (một phần: repo, `docker compose`, bảo vệ `main`); 3 service nối qua RabbitMQ | Hợp đồng + checker giả; spec tính năng LLM; 5 bài × 4 lời giải có nhãn; thử 2 mô hình bằng tay | Một message đi Gateway → Judge → checker giả → Gateway; báo cáo thử 2 mô hình (trừ oan, "không chắc") và quyết định theo quy tắc ở mục 5.6 | R2 |
-| **W2: Lớp, đề, nộp** | T4 04/11 | A2, A3, B1, B2, C1, C4, D1. **Test:** TA lớp A không đọc được bài lớp B | C2, D3, D4. **Test:** bài đúng → AC, vòng lặp vô hạn → TLE, gọi mạng → bị chặn | C3; E1 (một phần: cấm hàm/thư viện); E8 (một phần: khung harness) | Nhập CSV 30 sinh viên; sinh viên nộp được; judge chấm đúng ba ca test của R2 | R1 |
-| **W3: Harness, gate, job theo hạn**, PA#2 | **T4 11/11** | B3; test unit + integration Gateway | D2, D5, I1. **Test:** giao lại message không chấm trùng; worker chết giữa chừng thì bài được chấm lại | E8 (một phần: harness chạy bộ dev với luật cứng, LLM giả lập) | Hết hạn → mọi bài có verdict; **có ít nhất một PR bị gate chặn thật** (lưu link) | R2 |
-| **W4: Ràng buộc, rubric, kiểm tra đề** | T4 18/11 | F4 (trên checker giả); G1 (một phần: điểm, kết quả test) | C8 (judge chạy lời giải mẫu); D6 | C10; E1 (đủ: đệ quy, biến toàn cục); E2, E3 trên bộ dev | Luật bắt đúng 100% ca nhóm 1 trong bộ dev, không bắt nhầm `sort` tự viết; đề có lời giải mẫu không qua thì không phát hành được | R3 |
-| **W5: LLM chạy end-to-end**, PA#3 | **T4 25/11** | F5; G1 (đủ: dòng bị trừ, lý do). **Test:** bấm công bố 2 lần cùng lúc chỉ tạo một bản điểm | Thay checker giả bằng checker thật trong job chấm; I2 (một phần: log có cấu trúc) | E5; F1, F2, F3; báo cáo eval đầu tiên trên bộ dev | Demo đủ 4 bài nộp ở mục 2.3; đoạn trích sai dòng tự chuyển "không chắc"; công bố chạy trong transaction | R3 |
-| **W6: Eval, hàng rào, red-team**, PA#4 | **T4 02/12** | G4; nhật ký duyệt | Timeout và hạn mức chi phí trong pipeline. **Test thoát sandbox:** fork bomb, ghi file ngoài thư mục, gọi mạng | E4; E8 (đủ: bộ giữ kín, red-team, gate); F6 | Báo cáo eval trên bộ giữ kín đạt ngưỡng mục 2.8 (hoặc ghi rõ chỗ chưa đạt); red-team 0 ca; **có một PR bị gate eval chặn** | R3 |
-| **W7: Phản hồi** | T4 09/12 | G2, G5, G6, F7 | I3 (một phần: triển khai thử); email cho G6 | E6, E7, C9 | Khiếu nại đi đủ vòng sinh viên → TA → điểm cập nhật; bản triển khai thử chạy được | R1 |
-| **W8: Chạy thật, có giám sát**, PA#5 | **T4 16/12** | A4, A5, C5, C6, D7; H1, H2 (cắt trước) | I2, I3 (đủ: URL công khai, load test chấm cả lớp, runbook) | Chạy lại eval trên bản triển khai; báo cáo chi phí token thật | URL công khai chạy được; load test 100 bài có số liệu (không mất bài, thời gian chấm cả lớp); dashboard hiển thị số liệu I2 | R2 |
-| **W9–W10: Bản cuối** | T4 30/12 | I5: test E2E luồng TA (tạo đề → chấm → duyệt → công bố) và sinh viên (nộp → xem điểm → khiếu nại) | Triển khai bản cuối từ máy trắng theo runbook; I4 nếu kịp | Kịch bản demo và video: bài lách đề bị bắt, đề mơ hồ bị chặn trước khi phát hành, mã giả bị trần điểm | Test E2E xanh trên bản triển khai; dựng lại hệ thống chỉ theo runbook; video demo | R2 |
-| **Seminar** | 10/12, 17/12 | | | | Slide demo luồng TA và số liệu eval | Cả nhóm |
-| **Vấn đáp**, PA#6 | 06/01/2027 | | | | Cả ba người; mỗi người giải thích phần mình **và** tính năng LLM, tự chạy lại eval và demo | Cả ba |
+| **W1: Nền móng** | T4 28/10 | A1; khung React; bản nháp contract endpoint | Repo, `docker compose`, 3 service nối qua hàng đợi; I1 (một phần: rules file, `.env.example`) | Hợp đồng + checker giả; E5 (khung CLI ghi JSONL toàn `unsure`); thử 2 mô hình bằng tay trên 2 bài của bộ dev | Message đi Gateway → Judge → checker giả → Gateway; `eval.mjs` chạy được trên file dự đoán (kết quả FAIL là đúng); báo cáo thử 2 mô hình và quyết định theo mục 5.6 | R2 |
+| **W2: Lớp, lab, nộp** | T4 04/11 | A2, A3, B1, B2, C1, D1 | C2, D2, D3 (kèm test tấn công), D4 (một phần: verdict trả về) | E1; E8 (một phần: CI chạy eval, chưa bắt buộc) | Sinh viên nộp và thấy verdict; test: sinh viên lớp khác không nộp được; mọi test tấn công sandbox đều thất bại | R1 |
+| **W3: Harness và gate**, PA#2 | **T4 11/11** | I3 (contract đủ, contract test, một lần cố ý làm vỡ contract) | I1, I2 (check bắt buộc; một PR bị chặn và commit làm xanh) | Unit test checker không gọi mô hình thật | Đủ 7 tiêu chí rubric PA#2; `PA2.md`; tag `pa2` | R2 |
+| **W4: Ràng buộc và mô hình** | T4 18/11 | C3, C4, C5, D5 | D4 (đủ: realtime); D6; C6 (chạy lời giải mẫu) | E2, E3 trên bộ dev; báo cáo eval đầu tiên | Luật cứng không trừ oan ca bẫy nào của bộ dev; bằng chứng sai dòng tự chuyển `unsure` | R3 |
+| **W5: LLM chạy end-to-end**, PA#3 | **T4 25/11** | F4; nối pipeline vào hàng chờ | Nối checker thật sau judge qua hàng đợi; I4 (một phần: log có cấu trúc) | F1; checker thật thay checker giả | Demo đúng mô tả PA#3: TA tạo lab → sinh viên nộp → bài Accepted qua luật cứng và mô hình → verdict kèm bằng chứng trong hàng chờ | R3 |
+| **W6: Eval, guardrail, human gate**, PA#4 | **T4 02/12** | F5 (Publish bị chặn khi còn mục chưa duyệt); G1. **Test:** bấm Publish 2 lần chỉ tạo một bản điểm | Hạn mức chi phí, timeout trong pipeline; I5 (một phần: bản triển khai cho red team) | F2, F3, E4; E8 (đủ: gate bắt buộc) | Eval bộ dev đạt ngưỡng; **một PR bị gate eval chặn**; không Publish được khi chưa duyệt; báo cáo red-team nhóm được ghép (cả nhóm) | R3 |
+| **W7: Khiếu nại và quan sát** | T4 09/12 | G2, G3, G4, F7 | I4 (đủ: metric, trace, dashboard) | E6, E7, F6, C7 | Khiếu nại đi đủ vòng; dashboard hiện số liệu I4 | R1 |
+| **W8: Chạy thật**, PA#5 | **T4 16/12** | A4, A5, C8, D7, F8 | I5 (đủ), I6 (load test 80 bài cùng lúc), I7 (post-mortem) | Chạy lại eval trên bản triển khai; chi phí mỗi lab ghi vào README và AI-LOG | URL công khai; load test không mất bài, có p95; post-mortem; README ghi mô hình và chi phí mỗi lab | R2 |
+| **W9: Bản cuối** | T4 23/12 | I8 (E2E luồng TA và sinh viên) | Triển khai lại từ máy trắng theo runbook | Kịch bản demo: bài lách đề bị bắt, ca bẫy không bị trừ oan | E2E xanh trên bản triển khai | R2 |
+| **Vấn đáp**, PA#6 | 24/12, 31/12 | | | | Mỗi người giải thích phần mình và tính năng LLM, tự chạy lại eval và demo | Cả ba |
 
-Các tính năng **Could** còn lại (B4, C7, F8, G3, I4) không xếp lịch; làm khi đã đóng hết việc của tuần.
+Seminar (10/12, 17/12): chọn chủ đề tối ưu trong W7. Các tính năng **Could** (B3, C9, F9, G5, H1, H2, I9) không xếp lịch.
 
 ### 5.5 Theo dõi tiến độ
 
-- **Mỗi mã tính năng là một GitHub Issue**, tiêu đề bắt đầu bằng mã (ví dụ `C8 Kiểm tra đề bằng lời giải mẫu`), gắn nhãn nhóm (`A`…`I`), mức (`must`, `should`, `could`), vai trò (`R1`, `R2`, `R3`) và milestone `W1`…`W10`.
-- **Tiêu chí đóng issue:** chạy được trên nhánh `main`, có test, CI xanh. Chưa có test thì chưa tính là xong.
-- **Tiến độ đo theo từng milestone:** issue của milestone đó có đóng đúng hạn không, và tiêu chí xong của tuần có kiểm được không. Không dùng tổng số tính năng lũy kế, vì các tính năng nặng nhẹ khác nhau và PA#4, PA#5 đo bằng chất lượng (eval, load test) chứ không bằng số tính năng.
-- **Họp ngắn cuối mỗi milestone:** issue trễ được chuyển sang tuần sau, ghi lý do trong issue.
+- Mỗi mã tính năng là một GitHub Issue, tiêu đề bắt đầu bằng mã, gắn nhãn nhóm (`A`…`I`), mức (`must`, `should`, `could`), vai trò (`R1`, `R2`, `R3`) và milestone `W1`…`W9`.
+- Đóng issue khi chạy được trên `main`, có test, CI xanh.
+- Tiến độ đo theo từng milestone: issue của milestone đó đóng đúng hạn chưa, tiêu chí xong của tuần kiểm được chưa. PA#4 và PA#5 đo bằng chất lượng (eval, load test, post-mortem), không bằng số tính năng.
 
 ### 5.6 Nguyên tắc và quy tắc quyết định
 
-- **Spec và hợp đồng trước code** (W1).
-- **Mỗi PR một người review**; CI xanh mới merge.
-- **Quy tắc sau khi thử mô hình ở W1:** có trừ oan hoặc "không chắc" > 40% trên 5 bài × 4 lời giải thì R3 chỉ làm checker tới PA#2 (mở rộng luật cứng trước, sau đó mới sửa prompt), R1 và R2 tiếp tục trên checker giả.
-- **Nếu trễ, cắt từ dưới lên:** (1) nộp và job chấm theo hạn; (2) soát ràng buộc + duyệt theo nhóm + công bố điểm; (3) eval và gate; (4) rubric bài lỗi biên dịch, khiếu nại; (5) Should; (6) thống kê. Ghi lại lý do khi cắt.
-- **Không chỉnh prompt bằng bộ giữ kín.**
-
+- Spec và hợp đồng trước code (W1). Mỗi PR một người review, CI xanh mới merge.
+- **Sau khi thử mô hình ở W1:** có trừ oan hoặc `unsure` > 40% trên mẫu thử thì R3 chỉ làm checker tới PA#2 (mở rộng luật cứng trước, rồi mới sửa prompt); R1 và R2 làm tiếp trên checker giả.
+- **Nếu trễ, cắt từ dưới lên:** (1) nộp, chấm, sandbox; (2) soát ràng buộc và hàng chờ; (3) eval và gate; (4) Publish và khiếu nại; (5) Should; (6) Could.
+- Không chỉnh prompt theo phỏng đoán về bộ giữ kín; checker không có cấu hình riêng cho từng bài.
 
 ---
 
@@ -444,52 +419,44 @@ Các tính năng **Could** còn lại (B4, C7, F8, G3, I4) không xếp lịch; 
 
 | # | Rủi ro | Vì sao có thể làm hỏng dự án | Biện pháp |
 |---|---|---|---|
-| 1 | **Hạ tầng chấm bài tốn thời gian** | Sandbox chạy code lạ cần cách ly, ba service phải nối qua hàng đợi, job chấm theo hạn phải chịu lỗi; trễ thì không có bài để soát | Làm ngay ở W1: `docker compose` ba service nối qua RabbitMQ và một container chạy C++ không mạng, giới hạn thời gian. Không ổn thì dùng **Judge0** làm sandbox (cần Ubuntu 22.04/24.04 bật cgroup v1 qua GRUB); dự phòng tiếp là **isolate 2.x** (hỗ trợ cgroup v2) hoặc **Piston** |
-| 2 | **Mô hình trừ oan hoặc trả "không chắc" quá nhiều** | Trừ oan thì không thể đưa vào dùng; "không chắc" quá 20% thì TA không đỡ việc | Viết 5 bài × 4 lời giải có nhãn ngay W1, thử 2 mô hình bằng tay, đo hai tỉ lệ; vượt ngưỡng thì áp quy tắc ở mục 5.6; mở rộng luật cứng cho phần quyết được; C8 và C9 giảm ràng buộc mơ hồ từ phía đề |
-| 3 | **TA duyệt mù** | Hàng trăm đề xuất thì TA bấm duyệt cho xong; human gate chỉ còn trên giấy | Duyệt theo nhóm, không có nút "duyệt tất cả" cho đề xuất của LLM; khóa công bố khi chưa xử lý "không chắc"; theo dõi tỉ lệ TA bác trong báo cáo |
-| 4 | Chèn lệnh qua code sinh viên; mã giả ăn điểm rubric | Sinh viên có động cơ lừa mô hình | Bỏ comment, đặt code trong khung dữ liệu, trần điểm rubric, bộ red-team chạy trong CI, TA luôn duyệt |
-| 5 | Vượt hạn mức gói miễn phí / chi phí | Không gọi được mô hình lúc chấm | Hạn mức chi phí theo bài tập; vượt thì chuyển "không chắc" cho TA, không chặn việc chấm; lớp `LLMProvider` theo chuẩn OpenAI-compatible để đổi nhà cung cấp |
+| 1 | **Stack 3 service, 5 kho dữ liệu quá nặng** cho nhóm 3 người vừa làm PO | Trễ PA#2, PA#3 | Chốt ở W1: giữ 3 service, hoặc gộp Gateway + Checker và bỏ MongoDB/Garage (brief cho phép). Ranh giới module giữ nguyên |
+| 2 | **Sandbox không đạt yêu cầu tối thiểu** | Brief bắt buộc, red team PA#4 sẽ thử | Mỗi yêu cầu một test tấn công ngay W2; không đạt bằng Docker thì dùng Judge0 (cần cgroup v1 trên Ubuntu 22.04/24.04; không có verdict `MLE`), dự phòng isolate 2.x |
+| 3 | **Mô hình trừ oan hoặc `unsure` quá nhiều** | Không qua gate PA#4, không đạt trên bộ giữ kín | Thử sớm ở W1 trên bộ dev; luật cứng cho mọi ràng buộc danh sách cấm; quy tắc mục 5.6 |
+| 4 | **Checker phụ thuộc vào bài cụ thể** | Bộ giữ kín là bài khác, chạy bằng một lệnh | Chỉ đọc `statement.md` và `constraints.json`; thêm bài tự viết vào bộ của nhóm để kiểm |
+| 5 | **TA duyệt mù** | Human gate chỉ còn trên giấy | Duyệt theo nhóm, không có "duyệt tất cả" cho đề xuất của mô hình; theo dõi tỉ lệ TA bác |
+| 6 | **Việc PO chiếm thời gian** | Trễ việc của nhóm, hoặc trễ hạn trả lời 2 ngày | Trực luân phiên theo tuần; dùng skill FAQ để soạn nhanh |
 
 ---
 
 ## 7. Công nghệ và chi phí
 
-### 7.1 Công nghệ
+### 7.1 Công nghệ (sẽ chốt lại ở W1)
 
 | Công nghệ | Lý do gắn với dự án |
 |---|---|
-| **React** | Ba giao diện: TA duyệt hàng chờ (đoạn code + lý do), giảng viên xem báo cáo, sinh viên nộp bài và xem dòng bị trừ |
-| **Node (NestJS)** | Gateway, nghiệp vụ lớp/đề/điểm, scheduler theo hạn nộp; module rõ ràng cho xác thực và phân quyền |
-| **Java (Spring Boot)** | Judge worker xử lý hàng đợi nhiều luồng đồng thời khi cả lớp được chấm cùng lúc |
-| **Python** | Checker: tree-sitter cho phân tích C++, SDK mô hình, công cụ eval |
-| **PostgreSQL** | Dữ liệu quan hệ (lớp, bài nộp, điểm); transaction khi công bố điểm |
-| **MongoDB** | Lưu từng lần soát của LLM, cấu trúc đổi theo loại tiêu chí và phiên bản prompt |
-| **Redis** (hoặc Valkey, tương thích) | Rate limit; pub/sub đẩy thông báo realtime |
-| **RabbitMQ** | Hàng đợi chấm bài; retry, dead-letter queue (có thể thay bằng Redis Streams nếu nhóm muốn gọn) |
-| **Garage** (tương thích S3) | Lưu bộ test và code nộp. Thay MinIO vì bản cộng đồng của MinIO đã chuyển sang chế độ bảo trì; SeaweedFS là lựa chọn tương đương |
-| **Docker + Docker Compose** | Đóng gói service và làm sandbox; một lệnh dựng toàn bộ hệ thống |
-| **GitHub Actions** | CI: lint, test, build; chạy eval làm gate chặn merge |
-| **Resend hoặc Brevo** | Gửi email (quên mật khẩu, thông báo điểm) trong hạn mức miễn phí |
-| **Vercel Hobby + máy ảo** (Oracle Always Free, Azure for Students hoặc AWS free plan) | Frontend tĩnh trên Vercel; backend và judge cần chạy Docker nên đặt trên máy ảo |
-
-Các nhóm có thể đổi công nghệ trong cùng vai trò (ví dụ Express thay NestJS) nhưng nên giữ ranh giới 3 service và hàng đợi, vì kế hoạch ở mục 5 dựa trên ranh giới đó.
-
-**Google Classroom (chỉ cho các tính năng Could B4, C7, F8):** ứng dụng OAuth ở Testing mode giới hạn 100 người dùng thử và token hết hạn sau 7 ngày; API chỉ cho chấm bài tập do chính project tạo ra. Vì vậy demo bằng tài khoản Gmail của nhóm, còn CSV (B2, F7) là cách chính.
+| **React** | Giao diện TA duyệt hàng chờ (bằng chứng + lý do), sinh viên nộp bài và xem kết quả realtime |
+| **Node (NestJS)** | Gateway và nghiệp vụ lớp, lab, điểm; module rõ cho xác thực và phân quyền |
+| **Java (Spring Boot)** | Judge worker xử lý hàng đợi nhiều luồng khi 80 bài nộp cùng lúc |
+| **Python** | Checker: tree-sitter-cpp, SDK mô hình, CLI dự đoán, eval |
+| **PostgreSQL** | Dữ liệu quan hệ; transaction khi Publish |
+| **MongoDB** | Lưu từng lần soát; có thể bỏ nếu gộp service |
+| **Redis** | Rate limit; pub/sub đẩy realtime |
+| **RabbitMQ** | Hàng đợi chấm bài; retry, dead-letter queue |
+| **Garage** (S3) | Lưu bộ test và code nộp; có thể thay bằng filesystem nếu gộp |
+| **Docker** | Đóng gói service và làm sandbox |
+| **GitHub Actions** | Lint, format, type check, test, contract test, eval gate |
+| **Vercel + máy ảo** (Oracle Always Free, Azure for Students hoặc AWS) | Frontend tĩnh; backend và judge cần Docker |
+| **Resend hoặc Brevo** | Email (quên mật khẩu, thông báo) |
 
 ### 7.2 Mô hình và chi phí
 
-- **Mặc định:** `gemini-3.1-flash-lite`, giá 0,25 USD / 1M token vào, 1,50 USD / 1M token ra (theo ai.google.dev/gemini-api/docs/pricing, tháng 10/2026). Gói miễn phí đủ cho giai đoạn phát triển; dữ liệu gói miễn phí được nhà cung cấp dùng để cải thiện sản phẩm, chấp nhận được vì đầu vào đã ẩn danh (mục 2.9).
-- **Thay thế cùng hãng:** `gemini-3.5-flash-lite` (0,30 / 2,50 USD), dùng nếu eval cho thấy bản 3.1 trả "không chắc" quá nhiều.
-- **Dự phòng khi hết hạn mức hoặc nhà cung cấp lỗi:** Groq hoặc GitHub Models (gói miễn phí), gpt-5-nano. Checker gọi mô hình qua lớp `LLMProvider` theo chuẩn OpenAI-compatible nên đổi bằng cấu hình.
-- **Ước tính cho một nhóm cả học kỳ:** khoảng 5.000 lần gọi (≈ 1.000 bài cần soát hoặc xét rubric + eval chạy lặp + phát triển), mỗi lần khoảng 2.500 token vào và 400 token ra:
-  - Vào: 5.000 × 2.500 = 12,5M token × 0,25 USD = **3,13 USD**
-  - Ra: 5.000 × 400 = 2M token × 1,50 USD = **3,00 USD**
-  - Khoảng **6 USD** nếu mọi lần gọi đều trả phí; thực tế thấp hơn vì phần phát triển nằm trong gói miễn phí.
-- **Hạn mức:** đặt giới hạn chi tiêu 10 USD trên tài khoản; checker ghi token mỗi lần gọi và dừng gọi mô hình khi chạm hạn mức của bài tập.
+- **Mặc định:** `gemini-3.1-flash-lite`, 0,25 USD / 1M token vào, 1,50 USD / 1M token ra (ai.google.dev/gemini-api/docs/pricing, tháng 10/2026). Thay thế: `gemini-3.5-flash-lite`. Dự phòng: Groq, GitHub Models; gọi qua lớp `LLMProvider` chuẩn OpenAI-compatible.
+- **Chi phí một lab** (brief yêu cầu ghi trong README và AI-LOG): 80 bài Accepted × khoảng 2 ràng buộc ngữ nghĩa = 160 lần gọi; mỗi lần khoảng 2.500 token vào, 400 token ra → 0,4M × 0,25 + 0,064M × 1,50 ≈ **0,2 USD mỗi lab**.
+- **Cả học kỳ** (phát triển + eval chạy lặp trong CI): khoảng 5.000 lần gọi ≈ 6 USD nếu trả phí toàn bộ. **Giới hạn chi tiêu 10 USD** trên tài khoản, ghi trong README.
 
 ### 7.3 Trợ lý code AI
 
-Theo quy định của môn, mỗi nhóm chọn trợ lý code chính và khai báo đầy đủ trong `AI-LOG.md` theo từng việc.
+Mỗi thành viên khai báo công cụ và từng việc trong `AI-LOG.md`.
 
 ---
 
@@ -497,14 +464,11 @@ Theo quy định của môn, mỗi nhóm chọn trợ lý code chính và khai b
 
 | Thuật ngữ | Nghĩa |
 |---|---|
-| **Bài tập (assignment)** | Một đề được gán cho một lớp, có hạn nộp và chính sách riêng |
-| **Job chấm theo hạn** | Khi hết hạn, hệ thống tự chấm bản nộp cuối của mọi sinh viên trong lớp |
-| **Ràng buộc** | Yêu cầu của đề ngoài output (cấm hàm, bắt kỹ thuật, giới hạn cách làm) |
-| **Rubric** | Các tiêu chí kèm điểm TA đặt để chấm bài lỗi biên dịch theo ý tưởng, có trần % |
-| **Luật cứng** | Kiểm tra tất định bằng phân tích cú pháp, không dùng LLM |
-| **Đề xuất / finding** | Kết quả xét một tiêu chí của một bài, đã qua kiểm tra đầu ra, chờ TA duyệt |
-| **Trừ oan** | Báo vi phạm (hoặc "không đạt") trên bài thực ra đúng yêu cầu |
-| **"Không chắc"** | Kết quả hệ thống không đủ căn cứ kết luận; luôn chuyển TA xem |
-| **Lời giải mẫu** | Lời giải của TA, dùng để kiểm tra đề trước khi phát hành |
-| **Bộ giữ kín** | Phần bộ eval chỉ dùng để nghiệm thu, không dùng chỉnh prompt |
-| **Red-team** | Bộ ca cố tình lừa hệ thống (chèn lệnh, che giấu lời gọi hàm, mã giả…) |
+| **Lab** | Bài tập TA giao cho một lớp: đề, bộ test, ràng buộc, hạn nộp |
+| **Bài được tính** | Bài nộp cuối cùng trước hạn của mỗi sinh viên (FAQ-02) |
+| **Ràng buộc danh sách cấm** | Ràng buộc bắt đầu bằng "Do not use" hoặc "Do not call", luật cứng quyết |
+| **Ràng buộc ngữ nghĩa** | Mọi ràng buộc còn lại, mô hình quyết |
+| **Đề xuất / finding** | Kết quả soát một cặp (bài, ràng buộc), chờ TA duyệt |
+| **Khoản trừ** | Ràng buộc TA đã xác nhận là vi phạm, kèm mức trừ |
+| **Trừ oan** | Báo `violation` cho cặp thực ra `pass` |
+| **Bộ giữ kín** | Bộ eval thầy giữ, bài khác bộ dev, chấm checker ở PA#4 |
